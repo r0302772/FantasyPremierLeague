@@ -1,0 +1,102 @@
+﻿@model FantasyPremierLeague.ViewModels.TeamDetailsViewModel
+
+@{
+    ViewData["Title"] = $"Details {Model.name}";
+}
+
+<h2>Details @Model.name</h2>
+
+<table class="table table-hover">
+    @*<thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>*@
+    <tbody>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.short_name)</th>
+            <td>
+                @Model.short_name
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.name)</th>
+            <td>
+                @Model.name
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.position)</th>
+            <td>
+                @Model.position
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.win)</th>
+            <td>
+                @Model.win
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.draw)</th>
+            <td>
+                @Model.draw
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.loss)</th>
+            <td>
+                @Model.loss
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.unavailable)</th>
+            <td>
+                @Model.unavailable
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.strength)</th>
+            <td>
+                @Model.strength
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.strength_overall_home)</th>
+            <td>
+                @Model.strength_overall_home
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.strength_overall_away)</th>
+            <td>
+                @Model.strength_overall_away
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.strength_attack_home)</th>
+            <td>
+                @Model.strength_attack_home
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.strength_attack_away)</th>
+            <td>
+                @Model.strength_attack_away
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.strength_defence_home)</th>
+            <td>
+                @Model.strength_defence_home
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.strength_defence_away)</th>
+            <td>
+                @Model.strength_defence_away
+            </td>
+        </tr>
+    </tbody>
+</table>
