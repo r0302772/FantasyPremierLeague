@@ -8,11 +8,11 @@
 
 <table class="table table-hover">
     @*<thead>
-        <tr>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>*@
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>*@
     <tbody>
         <tr>
             <th scope="row">@Html.DisplayNameFor(model => model.short_name)</th>
@@ -26,10 +26,16 @@
                 @Model.name
             </td>
         </tr>
+        @*<tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.position)</th>
+                <td>
+                    @Model.position
+                </td>
+            </tr>*@
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.position)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.total_points)</th>
             <td>
-                @Model.position
+                @Model.total_points
             </td>
         </tr>
         <tr>
@@ -50,53 +56,305 @@
                 @Model.loss
             </td>
         </tr>
+        @*<tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.unavailable)</th>
+                <td>
+                    @Model.unavailable
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.strength)</th>
+                <td>
+                    @Model.strength
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.strength_overall_home)</th>
+                <td>
+                    @Model.strength_overall_home
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.strength_overall_away)</th>
+                <td>
+                    @Model.strength_overall_away
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.strength_attack_home)</th>
+                <td>
+                    @Model.strength_attack_home
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.strength_attack_away)</th>
+                <td>
+                    @Model.strength_attack_away
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.strength_defence_home)</th>
+                <td>
+                    @Model.strength_defence_home
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.strength_defence_away)</th>
+                <td>
+                    @Model.strength_defence_away
+                </td>
+            </tr>*@
+    </tbody>
+</table>
+
+<h2>Players</h2>
+
+<table class="table table-hover table-striped-columns">
+    <thead>
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.unavailable)</th>
-            <td>
-                @Model.unavailable
-            </td>
+            <th>Position</th>
+            <th>Cost</th>
+            <th>Name</th>
+            <th>Min. Played</th>
+            @*<th>Points per game</th>*@
+            <th>Total pts</th>
+            <th>Form</th>
+            <th>Selected</th>
+            @*<th>TransferIn (GW) / TransferOut (GW) </th>*@
+            <th>Plays This GW</th>
+            <th>Plays Next GW</th>
+            <th>News</th>
+            <th>Goals</th>
+            <th>Owngoals</th>
+            <th>Assists</th>
+            <th>CS</th>
+            <th>Goals conceded</th>
+            <th>Saves</th>
+            <th>Pen Saved</th>
+            <th>Pen Missed</th>
+            <th>Yellow</th>
+            <th>Red</th>
+            <th>Bonus</th>
+            <th>BPS</th>
+            <th>Influence</th>
+            <th>Creativity</th>
+            <th>Threath</th>
+            <th>ICT</th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.PlayersOfTeam)
+        {
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.strength)</th>
-            <td>
-                @Model.strength
-            </td>
+            <td>@x.element_type</td>
+            <td>@(x.now_cost / 10)</td>
+            <td><a asp-controller="Player" asp-action="Details" asp-route-id="@x.id"><p>@x.web_name</p>(@x.first_name @x.second_name)</a></td>
+            <td>@x.minutes</td>
+            @*<td>@x.points_per_game</td>*@
+            <td>@x.total_points</td>
+            <td>@x.form</td>
+            <td>@x.selected_by_percent %</td>
+            @*<td>@x.transfers_in (@x.transfers_in_event) / @x.transfers_out (@x.transfers_out_event)</td>*@
+            <td>@x.chance_of_playing_this_round %</td>
+            <td>@x.chance_of_playing_next_round %</td>
+            <td><p>@x.news</p>@x.news_added</td>
+            <td>@x.goals_scored</td>
+            <td>@x.own_goals</td>
+            <td>@x.assists</td>
+            <td>@x.clean_sheets</td>
+            <td>@x.goals_conceded</td>
+            <td>@x.saves</td>
+            <td>@x.penalties_saved</td>
+            <td>@x.penalties_missed</td>
+            <td>@x.yellow_cards</td>
+            <td>@x.red_cards</td>
+            <td>@x.bonus</td>
+            <td>@x.bps</td>
+            <td>@x.influence</td>
+            <td>@x.creativity</td>
+            <td>@x.threat</td>
+            <td>@x.ict_index</td>
         </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Penalty Takers</h2>
+
+<table class="table table-hover table-striped-columns">
+    <thead>
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.strength_overall_home)</th>
-            <td>
-                @Model.strength_overall_home
-            </td>
+            <th>Position</th>
+            <th>Cost</th>
+            <th>Name</th>
+            <th>Minutes Played</th>
+            <th>Points per game</th>
+            <th>Total points</th>
+            <th>Form</th>
+            <th>Selected</th>
+            @*<th>TransferIn (GW) / TransferOut (GW) </th>*@
+            <th>Plays This GW</th>
+            <th>Plays Next GW</th>
+            <th>News</th>
+            <th>Bonus</th>
+            <th>BPS</th>
+            <th>Influence</th>
+            <th>Creativity</th>
+            <th>Threath</th>
+            <th>ICT</th>
+            <th>Corners / Indirect Free Kicks</th>
+            <th>Direct Free Kicks</th>
+            <th>Penalties</th>
+            <th>Penalties Missed</th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.PenaltyTakers)
+        {
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.strength_overall_away)</th>
-            <td>
-                @Model.strength_overall_away
-            </td>
+            <td>@x.element_type</td>
+            <td>@(x.now_cost / 10)</td>
+            <td><a asp-controller="Player" asp-action="Details" asp-route-id="@x.id"><p>@x.web_name</p>(@x.first_name @x.second_name)</a></td>
+            <td>@x.minutes</td>
+            <td>@x.points_per_game</td>
+            <td>@x.total_points</td>
+            <td>@x.form</td>
+            <td>@x.selected_by_percent %</td>
+            @*<td>@x.transfers_in (@x.transfers_in_event) / @x.transfers_out (@x.transfers_out_event)</td>*@
+            <td>@x.chance_of_playing_this_round %</td>
+            <td>@x.chance_of_playing_next_round %</td>
+            <td><p>@x.news</p>@x.news_added</td>
+            <td>@x.bonus</td>
+            <td>@x.bps</td>
+            <td>@x.influence</td>
+            <td>@x.creativity</td>
+            <td>@x.threat</td>
+            <td>@x.ict_index</td>
+            <td>@x.corners_and_indirect_freekicks_order</td>
+            <td>@x.direct_freekicks_order</td>
+            <td>@x.penalties_order</td>
+            <td>@x.penalties_missed</td>
         </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Direct Free Kick Takers</h2>
+
+<table class="table table-hover table-striped-columns">
+    <thead>
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.strength_attack_home)</th>
-            <td>
-                @Model.strength_attack_home
-            </td>
+            <th>Position</th>
+            <th>Cost</th>
+            <th>Name</th>
+            <th>Minutes Played</th>
+            <th>Points per game</th>
+            <th>Total points</th>
+            <th>Form</th>
+            <th>Selected</th>
+            @*<th>TransferIn (GW) / TransferOut (GW) </th>*@
+            <th>Plays This GW</th>
+            <th>Plays Next GW</th>
+            <th>News</th>
+            <th>Bonus</th>
+            <th>BPS</th>
+            <th>Influence</th>
+            <th>Creativity</th>
+            <th>Threath</th>
+            <th>ICT</th>
+            <th>Corners / Indirect Free Kicks</th>
+            <th>Direct Free Kicks</th>
+            <th>Penalties</th>
+            <th>Penalties Missed</th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.DirectFreekickTakers)
+        {
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.strength_attack_away)</th>
-            <td>
-                @Model.strength_attack_away
-            </td>
+            <td>@x.element_type</td>
+            <td>@(x.now_cost / 10)</td>
+            <td><a asp-controller="Player" asp-action="Details" asp-route-id="@x.id"><p>@x.web_name</p>(@x.first_name @x.second_name)</a></td>
+            <td>@x.minutes</td>
+            <td>@x.points_per_game</td>
+            <td>@x.total_points</td>
+            <td>@x.form</td>
+            <td>@x.selected_by_percent %</td>
+            @*<td>@x.transfers_in (@x.transfers_in_event) / @x.transfers_out (@x.transfers_out_event)</td>*@
+            <td>@x.chance_of_playing_this_round %</td>
+            <td>@x.chance_of_playing_next_round %</td>
+            <td><p>@x.news</p>@x.news_added</td>
+            <td>@x.bonus</td>
+            <td>@x.bps</td>
+            <td>@x.influence</td>
+            <td>@x.creativity</td>
+            <td>@x.threat</td>
+            <td>@x.ict_index</td>
+            <td><p>@x.corners_and_indirect_freekicks_order</p>@x.corners_and_indirect_freekicks_text</td>
+            <td><p>@x.direct_freekicks_order</p>@x.direct_freekicks_text</td>
+            <td><p>@x.penalties_order</p>@x.penalties_text</td>
+            <td>@x.penalties_missed</td>
         </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Corners & Indirect Free Kick Takers</h2>
+
+<table class="table table-hover table-striped-columns">
+    <thead>
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.strength_defence_home)</th>
-            <td>
-                @Model.strength_defence_home
-            </td>
+            <th>Position</th>
+            <th>Cost</th>
+            <th>Name</th>
+            <th>Minutes Played</th>
+            <th>Points per game</th>
+            <th>Total points</th>
+            <th>Form</th>
+            <th>Selected</th>
+            @*<th>TransferIn (GW) / TransferOut (GW) </th>*@
+            <th>Plays This GW</th>
+            <th>Plays Next GW</th>
+            <th>News</th>
+            <th>Bonus</th>
+            <th>BPS</th>
+            <th>Influence</th>
+            <th>Creativity</th>
+            <th>Threath</th>
+            <th>ICT</th>
+            <th>Corners / Indirect Free Kicks</th>
+            <th>Direct Free Kicks</th>
+            <th>Penalties</th>
+            <th>Penalties Missed</th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.CornersAndIndirectFreekickTakers)
+        {
         <tr>
-            <th scope="row">@Html.DisplayNameFor(model => model.strength_defence_away)</th>
-            <td>
-                @Model.strength_defence_away
-            </td>
+            <td>@x.element_type</td>
+            <td>@(x.now_cost / 10)</td>
+            <td><a asp-controller="Player" asp-action="Details" asp-route-id="@x.id"><p>@x.web_name</p>(@x.first_name @x.second_name)</a></td>
+            <td>@x.minutes</td>
+            <td>@x.points_per_game</td>
+            <td>@x.total_points</td>
+            <td>@x.form</td>
+            <td>@x.selected_by_percent %</td>
+            @*<td>@x.transfers_in (@x.transfers_in_event) / @x.transfers_out (@x.transfers_out_event)</td>*@
+            <td>@x.chance_of_playing_this_round %</td>
+            <td>@x.chance_of_playing_next_round %</td>
+            <td><p>@x.news</p>@x.news_added</td>
+            <td>@x.bonus</td>
+            <td>@x.bps</td>
+            <td>@x.influence</td>
+            <td>@x.creativity</td>
+            <td>@x.threat</td>
+            <td>@x.ict_index</td>
+            <td>@x.corners_and_indirect_freekicks_order</td>
+            <td>@x.direct_freekicks_order</td>
+            <td>@x.penalties_order</td>
+            <td>@x.penalties_missed</td>
         </tr>
+        }
     </tbody>
 </table>

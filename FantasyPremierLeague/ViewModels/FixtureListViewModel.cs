@@ -1,14 +1,19 @@
-﻿using System;
+﻿using FantasyPremierLeague.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FantasyPremierLeague.Models
+namespace FantasyPremierLeague.ViewModels
 {
-    public class Fixture
+    public class FixtureListViewModel
     {
-        public int id { get; set; }
+        //public PaginatedList<Fixture> Fixtures { get; set; }
+        public Fixture[] events { get; set; }
+        //public Team[] teams { get; set; }
+        //public Team team { get; set; }
+
         public int Event { get; set; }
 
         [DataType(DataType.Date)]
@@ -16,9 +21,7 @@ namespace FantasyPremierLeague.Models
         public int minutes { get; set; }
         public int team_a { get; set; }
         public int team_a_score { get; set; }
-        public int team_a_difficulty { get; set; }
         public int team_h { get; set; }
         public int team_h_score { get; set; }
-        public int team_h_difficulty { get; set; }
     }
 }

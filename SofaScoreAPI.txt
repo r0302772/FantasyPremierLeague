@@ -1,0 +1,39 @@
+https://api.sofascore.com/api/v1/unique-tournament/17/season/41886/standings/total
+
+https://api.sofascore.com/api/v1/unique-tournament/17/season/41886/team-events/total
+
+//Inkomende en uitgaande transfers van ARSENAL (id = 42)
+https://api.sofascore.com/api/v1/team/42/transfers
+
+https://api.sofascore.com/api/v1/event/10333240
+
+//Laatste wedstrijden van ARSENAL (id = 42)
+https://api.sofascore.com/api/v1/team/42/events/last/0
+
+//Geplande wedstrijden van ARSENAL (id = 42)
+https://api.sofascore.com/api/v1/team/42/events/next/0
+
+https://api.sofascore.com/api/v1/team/42/performance
+
+https://api.sofascore.com/api/v1/team/42/unique-tournaments
+
+//Topspelers van ARSENAL (id = 42) van de Premier league (id = 17) uit seizoen 21/22 (id = 37036)
+https://api.sofascore.com/api/v1/team/42/unique-tournament/17/season/37036/top-players/overall
+
+https://api.sofascore.com/api/v1/team/42/unique-tournament/17/season/37036/statistics/overall
+
+https://api.sofascore.com/api/v1/unique-tournament/17/season/37036/top-teams/overall
+
+https://api.sofascore.com/api/v1/event/10333240/h2h
+
+https://api.sofascore.com/api/v1/event/10023296/pregame-form
+
+//Engeland - Hongarije
+https://api.sofascore.com/api/v1/event/10023296/lineups
+
+//Laatste premier league wedstrijd ARS - EVE
+https://api.sofascore.com/api/v1/event/9576311/lineups
+
+
+//premier league api request blocked
+https://footballapi.pulselive.com/football/clubs/1

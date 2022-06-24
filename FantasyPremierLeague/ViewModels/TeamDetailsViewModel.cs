@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FantasyPremierLeague.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,14 +21,8 @@ namespace FantasyPremierLeague.ViewModels
         public int draw { get; set; }
         [Display(Name = "Losses")]
         public int loss { get; set; }
-        //[Display(Name = "Point Total")]
-        //public int total_points
-        //{
-        //    get
-        //    {
-        //        return win * 3 + draw;
-        //    }
-        //}
+        [Display(Name = "Point Total")]
+        public int total_points { get; set; }
 
         [Display(Name = "Overall Strength")]
         public int strength { get; set; }
@@ -45,5 +40,10 @@ namespace FantasyPremierLeague.ViewModels
         public int strength_defence_away { get; set; }
         [Display(Name = "Unavailable")]
         public bool unavailable { get; set; }
+
+        public Player[] PlayersOfTeam { get; set; }
+        public Player[] CornersAndIndirectFreekickTakers { get; set; }
+        public Player[] DirectFreekickTakers { get; set; }
+        public Player[] PenaltyTakers { get; set; }
     }
 }

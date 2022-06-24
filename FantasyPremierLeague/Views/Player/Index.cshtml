@@ -1,0 +1,39 @@
+﻿@model FantasyPremierLeague.ViewModels.PlayerListViewModel
+
+@{
+    ViewData["Title"] = "Players";
+}
+
+<h2>All Players</h2>
+
+
+<form asp-controller="Player" asp-action="Index" method="get">
+    <p>
+        <select asp-for="@Model.team" asp-items="@Model.teams">
+            <option value="">All</option>
+        </select>
+        @*Find by title: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />*@
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table table-hover table-striped-columns">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Position</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.elements)
+        {
+        <tr>
+            <td>@x.id</td>
+            <td>@x.element_type</td>
+            <td><a asp-action="Details" asp-route-id="@x.id">@x.first_name @x.web_name</a></td>
+            <td>@x.team</td>
+        </tr>
+        }
+    </tbody>
+</table>

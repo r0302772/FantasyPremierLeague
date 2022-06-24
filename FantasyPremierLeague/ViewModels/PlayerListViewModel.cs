@@ -1,16 +1,16 @@
-﻿using System;
+﻿using FantasyPremierLeague.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FantasyPremierLeague.Models
+namespace FantasyPremierLeague.ViewModels
 {
-    public class Player
+    public class PlayerListViewModel
     {
-        public string photo { get; set; }
-        public double value { get; set; }
-        public int round { get; set; }
-        public int opponent_team { get; set; }
+        public List<SelectListItem> teams { get; set; }
+        public Player[] elements { get; set; }
         public int? chance_of_playing_next_round { get; set; }
         public int? chance_of_playing_this_round { get; set; }
         //public int code { get; set; }

@@ -1,4 +1,5 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -13,14 +14,30 @@ namespace FantasyPremierLeague.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            List<Fixture> fixtureList = new List<Fixture>();
+            Fixture[] fixtureList;
             using (var httpClient = new HttpClient())
             {
                 using var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/fixtures/");
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                fixtureList = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
+                fixtureList = JsonConvert.DeserializeObject<Fixture[]>(apiResponse);
             }
-            return View(fixtureList);
+
+            BootstrapStatic data;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    data = JsonConvert.DeserializeObject<BootstrapStatic>(apiResponse);
+                }
+            }
+
+            FixtureListViewModel viewModel = new FixtureListViewModel()
+            {
+                events = fixtureList
+            };
+
+            return View(viewModel);
         }
     }
 }
