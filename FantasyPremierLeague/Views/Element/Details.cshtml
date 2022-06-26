@@ -1,21 +1,21 @@
-﻿@model FantasyPremierLeague.ViewModels.PlayerDetailsViewModel
+﻿@model FantasyPremierLeague.ViewModels.ElementDetailsViewModel
 
 @{
-    ViewData["Title"] = $"Details {Model.Player.web_name}";
+    ViewData["Title"] = $"Details {Model.element.web_name}";
 }
 
-<h2>Details @Model.Player.first_name @Model.Player.web_name</h2>
-<h3>@Model.Position.singular_name</h3>
-<h3>@Model.Player.team</h3>
+<h2>Details @Model.element.first_name @Model.element.web_name</h2>
+<h3>@Model.element_type.singular_name</h3>
+<h3><a asp-controller="Team" asp-action="Details" asp-route-id="@Model.element.team">@Model.element.team</a></h3>
 
 <table class="table table-hover table-striped-columns">
     <thead>
         <tr>
             <th>GW</th>
             <th>Opponent</th>
-            <th>Cost</th>
-            <th>Minutes Played (@Model.Player.minutes)</th>
-            <th>Pts (@Model.Player.total_points)</th>
+            <th>Cost (@Model.CostDifference)</th>
+            <th>Minutes Played (@Model.element.minutes)</th>
+            <th>Pts (@Model.element.total_points)</th>
             @*
                 <th>Form</th>
                 <th>Selected</th>
@@ -42,12 +42,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model.PlayerStats)
+        @foreach (var x in Model.history)
         {
             <tr>
                 <td>@x.round</td>
-                <td>@x.opponent_team</td>
-                <td>@(x.value / 10)</td>
+                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@x.opponent_team">@x.opponent_team</a></td>
+                <td>@x.value</td>
                 <td>@x.minutes</td>
                 <td>@x.total_points</td>
                 @*<td>@x.form</td>

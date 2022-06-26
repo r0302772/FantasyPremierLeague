@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FantasyPremierLeague.ViewModels
 {
-    public class TeamListViewModel
+    public class DreamteamListViewModel
     {
-        public List<Team> teams { get; set; }
+        public List<Event> events { get; set; }
     }
 }

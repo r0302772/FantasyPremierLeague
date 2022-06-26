@@ -1,8 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Dreamteam";
+﻿@model FantasyPremierLeague.ViewModels.DreamteamListViewModel
+
+@{
+    ViewData["Title"] = "Players";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Dreamteam</p>
-</div>
+<h2>Dreamteams</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Gameweek</th>
+            <th>MVP</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.events)
+        {
+            <tr>
+                <td><a asp-controller="Dreamteam" asp-action="Details" asp-route-id="@x.id">@x.id</a></td>
+                <td><a asp-controller="Element" asp-action="Details" asp-route-id="@x.top_element_info.id">@x.top_element_info.id (@x.top_element_info.points)</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

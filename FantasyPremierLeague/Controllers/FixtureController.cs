@@ -14,27 +14,27 @@ namespace FantasyPremierLeague.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            Fixture[] fixtureList;
+            List<Fixture> fixtureList;
             using (var httpClient = new HttpClient())
             {
                 using var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/fixtures/");
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                fixtureList = JsonConvert.DeserializeObject<Fixture[]>(apiResponse);
+                fixtureList = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
             }
 
-            BootstrapStatic data;
+            Rootobject data;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<BootstrapStatic>(apiResponse);
+                    data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
                 }
             }
 
             FixtureListViewModel viewModel = new FixtureListViewModel()
             {
-                events = fixtureList
+                fixtures = fixtureList
             };
 
             return View(viewModel);

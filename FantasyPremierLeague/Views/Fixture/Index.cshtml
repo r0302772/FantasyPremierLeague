@@ -18,13 +18,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model.events)
+        @foreach (var x in Model.fixtures)
         {
             <tr>
                 <td>@x.id</td>
-                <td>@x.Event</td>
-                <td>@x.team_h (@x.team_a_difficulty)</td>
-                <td>@x.team_a (@x.team_h_difficulty)</td>
+                <td>@x._event</td>
+                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@x.team_h">@x.team_h</a> (@x.team_a_difficulty)</td>
+                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@x.team_a">@x.team_a</a> (@x.team_h_difficulty)</td>
                 <td>@x.team_h_score - @x.team_a_score</td>
                 <td>@x.kickoff_time</td>
             </tr>

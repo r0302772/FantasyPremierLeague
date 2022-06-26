@@ -79,7 +79,9 @@ C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\Fantasy
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Fixture\Index.cshtml.g.cs
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Team\Index.cshtml.g.cs
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Team\Details.cshtml.g.cs
-C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Player\Index.cshtml.g.cs
-C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Player\Details.cshtml.g.cs
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Dreamteam\Index.cshtml.g.cs
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Fixture\Details.cshtml.g.cs
+C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Dreamteam\Details.cshtml.g.cs
+C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Element\Details.cshtml.g.cs
+C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Element\Index.cshtml.g.cs
+C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Team\Standings.cshtml.g.cs

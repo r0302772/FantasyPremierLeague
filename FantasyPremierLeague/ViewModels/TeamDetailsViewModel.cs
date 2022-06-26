@@ -9,41 +9,57 @@ namespace FantasyPremierLeague.ViewModels
 {
     public class TeamDetailsViewModel
     {
-        [Display(Name = "Name")]
-        public string name { get; set; }
-        [Display(Name = "Short Name")]
-        public string short_name { get; set; }
-        [Display(Name = "Postition")]
-        public int position { get; set; }
-        [Display(Name = "Wins")]
-        public int win { get; set; }
-        [Display(Name = "Draws")]
+        #region Team
+        public int code { get; set; }
+        [Display(Name = "D")]
         public int draw { get; set; }
-        [Display(Name = "Losses")]
+        [Display(Name = "Form")]
+        public object form { get; set; }
+        public int id { get; set; }
+        [Display(Name = "L")]
         public int loss { get; set; }
-        [Display(Name = "Point Total")]
-        public int total_points { get; set; }
-
-        [Display(Name = "Overall Strength")]
+        [Display(Name = "Club")]
+        public string name { get; set; }
+        [Display(Name = "Played")]
+        public int played { get; set; }
+        [Display(Name = "Points")]
+        public int points { get; set; }
+        [Display(Name = "Position")]
+        public int position { get; set; }
+        public string short_name { get; set; }
+        [Display(Name = "Strength")]
         public int strength { get; set; }
-        [Display(Name = "Overall Strength Home")]
+        public object team_division { get; set; }
+        public bool unavailable { get; set; }
+        [Display(Name = "W")]
+        public int win { get; set; }
+        [Display(Name = "Strength Overall Home")]
         public int strength_overall_home { get; set; }
-        [Display(Name = "Overall Strength Away")]
+        [Display(Name = "Strength Overall Away")]
         public int strength_overall_away { get; set; }
         [Display(Name = "Strength Attack Home")]
         public int strength_attack_home { get; set; }
         [Display(Name = "Strength Attack Away")]
         public int strength_attack_away { get; set; }
-        [Display(Name = "Strength Defence Away")]
+        [Display(Name = "Strength Defence Home")]
         public int strength_defence_home { get; set; }
         [Display(Name = "Strength Defence Away")]
         public int strength_defence_away { get; set; }
-        [Display(Name = "Unavailable")]
-        public bool unavailable { get; set; }
+        public int pulse_id { get; set; }
 
-        public Player[] PlayersOfTeam { get; set; }
-        public Player[] CornersAndIndirectFreekickTakers { get; set; }
-        public Player[] DirectFreekickTakers { get; set; }
-        public Player[] PenaltyTakers { get; set; }
+        //extra props
+        [Display(Name = "Goals For")]
+        public int goals_for { get; set; }
+        [Display(Name = "Goals Against")]
+        public int goals_against { get; set; }
+        [Display(Name = "Goal Difference")]
+        public int goal_difference { get; set; }
+        #endregion
+
+        //public Team team { get; set; }
+        public List<Element> PlayersOfTeam { get; set; }
+        public List<Element> CornersAndIndirectFreekickTakers { get; set; }
+        public List<Element> DirectFreekickTakers { get; set; }
+        public List<Element> PenaltyTakers { get; set; }
     }
 }

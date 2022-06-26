@@ -1,0 +1,43 @@
+﻿@model FantasyPremierLeague.ViewModels.TeamListViewModel
+
+@{
+    ViewData["Title"] = "Standings";
+}
+
+<h2>Standings</h2>
+
+<table class="table table-hover table-striped-columns">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.teams[0].position)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].name)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].played)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].win)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].draw)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].loss)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].goals_for)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].goals_against)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].goal_difference)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].points)</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].form)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model.teams)
+        {
+            <tr>
+                <th scope="col">@(Model.teams.IndexOf(team) + 1)</th>
+                <td><a asp-action="Details" asp-route-id="@team.id">@team.name</a></td>
+                <td>@team.played</td>
+                <td>@team.win</td>
+                <td>@team.draw</td>
+                <td>@team.loss</td>
+                <td>@team.goals_for</td>
+                <td>@team.goals_against</td>
+                <td>@team.goal_difference</td>
+                <td>@team.points</td>
+                <td>@team.form</td>
+            </tr>
+        }
+    </tbody>
+</table>

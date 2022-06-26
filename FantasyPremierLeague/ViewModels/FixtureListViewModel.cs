@@ -10,11 +10,8 @@ namespace FantasyPremierLeague.ViewModels
     public class FixtureListViewModel
     {
         //public PaginatedList<Fixture> Fixtures { get; set; }
-        public Fixture[] events { get; set; }
-        //public Team[] teams { get; set; }
-        //public Team team { get; set; }
-
-        public int Event { get; set; }
+        public List<Fixture> fixtures { get; set; }
+        public int _event { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime kickoff_time { get; set; }

@@ -10,17 +10,17 @@
     <thead>
         <tr>
             <th></th>
-            <th></th>
-            <th>Points</th>
+            <th>@Html.DisplayNameFor(model => model.teams[0].name)</th>
+            <th>Next 5 Opponents (FDR)</th>
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < @Model.teams.Length; i++)
+        @foreach (var team in Model.teams)
         {
             <tr>
-                <th scope="col">@(i + 1)</th>
-                <td><a asp-action="Details" asp-route-id="@Model.teams[i].id">@Model.teams[i].name</a></td>
-                <td>@Model.teams[i].total_points</td>
+                <th scope="col">@(Model.teams.IndexOf(team) + 1)</th>
+                <td><a asp-action="Details" asp-route-id="@team.id">@team.name</a></td>
+                <td></td>
             </tr>
         }
     </tbody>
