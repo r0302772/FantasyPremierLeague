@@ -28,6 +28,7 @@ namespace FantasyPremierLeague.Models
         public string first_name { get; set; }
         [Display(Name = "Form")]
         public string form { get; set; }
+        [Display(Name = "ID")]
         public int id { get; set; }
         public bool in_dreamteam { get; set; }
         [Display(Name = "News")]

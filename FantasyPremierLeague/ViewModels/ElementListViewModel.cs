@@ -9,11 +9,13 @@ namespace FantasyPremierLeague.ViewModels
 {
     public class ElementListViewModel
     {
-        public List<SelectListItem> teams { get; set; }
+        public List<SelectListItem> teams_selectlist { get; set; }
         public List<SelectListItem> element_types_selectlist { get; set; }
+        public List<SelectListItem> set_piece_selectlist { get; set; }
         public List<Element> elements { get; set; }
 
         public int team_id { get; set; }
         public int element_type_id { get; set; }
+        public int set_piece_id { get; set; }
     }
 }

@@ -13,8 +13,24 @@ namespace FantasyPremierLeague.Controllers
 {
     public class TeamController : Controller
     {
+        //public async Task<Rootobject> GetData()
+        //{
+        //    Rootobject data;
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
+        //        {
+        //            string apiResponse = await response.Content.ReadAsStringAsync();
+        //            data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+        //        }
+        //    }
+
+        //    return data;
+        //}
+
         public async Task<IActionResult> Index(string sortOrder)
         {
+            #region API GetData Rootobject
             Rootobject data;
             using (var httpClient = new HttpClient())
             {
@@ -26,6 +42,7 @@ namespace FantasyPremierLeague.Controllers
             }
 
             if (data == null) { return NotFound(); }
+            #endregion
 
             var teams = data.teams.ToList();
 
@@ -77,6 +94,7 @@ namespace FantasyPremierLeague.Controllers
                 return NotFound();
             }
 
+            #region API GetData Rootobject
             Rootobject data;
             using (var httpClient = new HttpClient())
             {
@@ -86,13 +104,16 @@ namespace FantasyPremierLeague.Controllers
                     data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
                 }
             }
+            #endregion
 
             var team = data.teams.FirstOrDefault(x => x.id == id);
+
             if (team == null)
             {
                 return NotFound();
             }
 
+            #region API GetFixtures
             List<Fixture> fixtureList;
             using (var httpClient = new HttpClient())
             {
@@ -100,6 +121,7 @@ namespace FantasyPremierLeague.Controllers
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 fixtureList = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
             }
+            #endregion
 
             foreach (var fixture in fixtureList)
             {
@@ -180,6 +202,7 @@ namespace FantasyPremierLeague.Controllers
                 points = team.points,
                 form = team.form,
 
+                #region Team Strength
                 strength = team.strength,
                 strength_overall_home = team.strength_overall_home,
                 strength_overall_away = team.strength_overall_away,
@@ -187,13 +210,15 @@ namespace FantasyPremierLeague.Controllers
                 strength_attack_away = team.strength_attack_away,
                 strength_defence_home = team.strength_defence_home,
                 strength_defence_away = team.strength_defence_away
+                #endregion
             };
 
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Standings()
+        public async Task<IActionResult> Standings(string sortOrder)
         {
+            #region API GetData Rootobject
             Rootobject data;
             using (var httpClient = new HttpClient())
             {
@@ -205,9 +230,12 @@ namespace FantasyPremierLeague.Controllers
             }
 
             if (data == null) { return NotFound(); }
+            #endregion
 
+            var teams = data.teams.ToList();
+
+            #region API GetFixtures
             List<Fixture> fixtureList;
-
             using (var httpClient = new HttpClient())
             {
                 using var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/fixtures/");
@@ -216,8 +244,7 @@ namespace FantasyPremierLeague.Controllers
             }
 
             if (fixtureList == null) { return NotFound(); }
-
-            var teams = data.teams.ToList();
+            #endregion
 
             foreach (var team in teams)
             {
@@ -263,9 +290,48 @@ namespace FantasyPremierLeague.Controllers
                 team.points = team.win * 3 + team.draw;
             }
 
+            #region sortOrder
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["PointsSortParm"] = sortOrder == "points" ? "points_desc" : "points";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["PlayedSortParm"] = sortOrder == "played_desc" ? "played" : "played_desc";
+            ViewData["WinSortParm"] = sortOrder == "win_desc" ? "win" : "win_desc";
+            ViewData["DrawSortParm"] = sortOrder == "draw_desc" ? "draw" : "draw_desc";
+            ViewData["LossSortParm"] = sortOrder == "loss_desc" ? "loss" : "loss_desc";
+            ViewData["GoalsForSortParm"] = sortOrder == "goals_for_desc" ? "goals_for" : "goals_for_desc";
+            ViewData["GoalsAgainstSortParm"] = sortOrder == "goals_against_desc" ? "goals_against" : "goals_against_desc";
+            ViewData["GoalDifferenceSortParm"] = sortOrder == "goal_difference_desc" ? "goal_difference" : "goal_difference_desc";
+            //ViewData["PositionSortParm"] = sortOrder == "position" ? "position_desc" : "position";
+
+            teams = sortOrder switch
+            {
+                "points_desc" => teams.OrderByDescending(x => x.points).ToList(),
+                "points" => teams.OrderBy(x => x.points).ToList(),
+                "name_desc" => teams.OrderByDescending(x => x.name).ToList(),
+                "name" => teams.OrderBy(x => x.name).ToList(),
+                "played_desc" => teams.OrderByDescending(x => x.played).ToList(),
+                "played" => teams.OrderBy(x => x.played).ToList(),
+                "win_desc" => teams.OrderByDescending(x => x.win).ToList(),
+                "win" => teams.OrderBy(x => x.win).ToList(),
+                "draw_desc" => teams.OrderByDescending(x => x.draw).ToList(),
+                "draw" => teams.OrderBy(x => x.draw).ToList(),
+                "loss_desc" => teams.OrderByDescending(x => x.loss).ToList(),
+                "loss" => teams.OrderBy(x => x.loss).ToList(),
+                "goals_for_desc" => teams.OrderByDescending(x => x.goals_for).ToList(),
+                "goals_for" => teams.OrderBy(x => x.goals_for).ToList(),
+                "goals_against_desc" => teams.OrderByDescending(x => x.goals_against).ToList(),
+                "goals_against" => teams.OrderBy(x => x.goals_against).ToList(),
+                "goal_difference_desc" => teams.OrderByDescending(x => x.goal_difference).ToList(),
+                "goal_difference" => teams.OrderBy(x => x.goal_difference).ToList(),
+                //"position_desc" => teams.OrderByDescending(x => x.position).ToList(),
+                //"position" => teams.OrderBy(x => x.position).ToList(),
+                _ => teams.OrderByDescending(x => x.points).ToList(),
+            };
+            #endregion
+
             TeamListViewModel viewModel = new TeamListViewModel()
             {
-                teams = teams.OrderByDescending(x => x.points).ToList()
+                teams = teams
             };
 
             return View(viewModel);

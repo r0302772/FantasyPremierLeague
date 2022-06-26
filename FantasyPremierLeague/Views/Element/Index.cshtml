@@ -6,22 +6,21 @@
 
 <h2>All Players</h2>
 
-
 <form asp-controller="Element" asp-action="Index">
     <div class="row mb-3">
         <div class="col-3">
             <label for="team" class="col-form-label">Team</label>
-            <select class="form-select" asp-for="@Model.team_id" asp-items="@Model.teams" id="team">
+            <select class="form-select" asp-for="@Model.team_id" asp-items="@Model.teams_selectlist" id="team">
                 <option value="">All</option>
             </select>
         </div>
         <div class="col-3">
             <label for="position" class="col-form-label">Position</label>
-            <select class="form-select" asp-for="@Model.element_type_id" asp-items="@Model.element_types_selectlist" id="position">
+            <select class="form-select" asp-for="@Model.element_type_id" asp-items="@Model.element_types_selectlist" id="element_type">
                 <option value="">All</option>
             </select>
         </div>
-        @*Find by title: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />*@
+        @*Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />*@
     </div>
     <div class="row">
         <div class="col-auto">

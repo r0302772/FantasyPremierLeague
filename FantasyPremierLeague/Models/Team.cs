@@ -10,12 +10,12 @@ namespace FantasyPremierLeague.Models
     public class Team
     {
         public int code { get; set; }
-        [Display(Name = "D")]
+        [Display(Name = "Draw")]
         public int draw { get; set; }
         [Display(Name = "Form")]
         public object form { get; set; }
         public int id { get; set; }
-        [Display(Name = "L")]
+        [Display(Name = "Loss")]
         public int loss { get; set; }
         [Display(Name = "Club")]
         public string name { get; set; }
@@ -30,7 +30,7 @@ namespace FantasyPremierLeague.Models
         public int strength { get; set; }
         public object team_division { get; set; }
         public bool unavailable { get; set; }
-        [Display(Name = "W")]
+        [Display(Name = "Win")]
         public int win { get; set; }
         [Display(Name = "Strength Overall Home")]
         public int strength_overall_home { get; set; }
