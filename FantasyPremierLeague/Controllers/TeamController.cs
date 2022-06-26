@@ -13,7 +13,7 @@ namespace FantasyPremierLeague.Controllers
 {
     public class TeamController : Controller
     {
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
             Rootobject data;
             using (var httpClient = new HttpClient())
@@ -28,6 +28,39 @@ namespace FantasyPremierLeague.Controllers
             if (data == null) { return NotFound(); }
 
             var teams = data.teams.ToList();
+
+            #region sortOrder
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name";
+            ViewData["StrengthSortParm"] = sortOrder == "strength" ? "strength_desc" : "strength";
+            ViewData["StrengthOverallHomeSortParm"] = sortOrder == "strength_overall_home" ? "strength_overall_home_desc" : "strength_overall_home";
+            ViewData["StrengthAttackHomeSortParm"] = sortOrder == "strength_attack_home" ? "strength_attack_home_desc" : "strength_attack_home";
+            ViewData["StrengthDefenceHomeSortParm"] = sortOrder == "strength_defence_home" ? "strength_defence_home_desc" : "strength_defence_home";
+            ViewData["StrengthOverallAwaySortParm"] = sortOrder == "strength_overall_away" ? "strength_overall_away_desc" : "strength_overall_away";
+            ViewData["StrengthAttackAwaySortParm"] = sortOrder == "strength_attack_away" ? "strength_attack_away_desc" : "strength_attack_away";
+            ViewData["StrengthDefenceAwaySortParm"] = sortOrder == "strength_defence_away" ? "strength_defence_away_desc" : "strength_defence_away";
+
+            teams = sortOrder switch
+            {
+                "name_desc" => teams.OrderByDescending(x => x.name).ToList(),
+                "name" => teams.OrderBy(x => x.name).ToList(),
+                "strength_desc" => teams.OrderByDescending(x => x.strength).ToList(),
+                "strength" => teams.OrderBy(x => x.strength).ToList(),
+                "strength_overall_home_desc" => teams.OrderByDescending(x => x.strength_overall_home).ToList(),
+                "strength_overall_home" => teams.OrderBy(x => x.strength_overall_home).ToList(),
+                "strength_attack_home_desc" => teams.OrderByDescending(x => x.strength_attack_home).ToList(),
+                "strength_attack_home" => teams.OrderBy(x => x.strength_attack_home).ToList(),
+                "strength_defence_home_desc" => teams.OrderByDescending(x => x.strength_defence_home).ToList(),
+                "strength_defence_home" => teams.OrderBy(x => x.strength_defence_home).ToList(),
+                "strength_overall_away_desc" => teams.OrderByDescending(x => x.strength_overall_away).ToList(),
+                "strength_overall_away" => teams.OrderBy(x => x.strength_overall_away).ToList(),
+                "strength_attack_away_desc" => teams.OrderByDescending(x => x.strength_attack_away).ToList(),
+                "strength_attack_away" => teams.OrderBy(x => x.strength_attack_away).ToList(),
+                "strength_defence_away_desc" => teams.OrderByDescending(x => x.strength_defence_away).ToList(),
+                "strength_defence_away" => teams.OrderBy(x => x.strength_defence_away).ToList(),
+                _ => teams.OrderBy(x => x.name).ToList(),
+            };
+            #endregion
 
             TeamListViewModel viewModel = new TeamListViewModel()
             {

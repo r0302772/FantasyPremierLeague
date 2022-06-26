@@ -26,16 +26,23 @@ namespace FantasyPremierLeague.Models
         [Display(Name = "Position")]
         public int position { get; set; }
         public string short_name { get; set; }
+        [Display(Name = "Strength")]
         public int strength { get; set; }
         public object team_division { get; set; }
         public bool unavailable { get; set; }
         [Display(Name = "W")]
         public int win { get; set; }
+        [Display(Name = "Strength Overall Home")]
         public int strength_overall_home { get; set; }
+        [Display(Name = "Strength Overall Away")]
         public int strength_overall_away { get; set; }
+        [Display(Name = "Strength Attack Home")]
         public int strength_attack_home { get; set; }
+        [Display(Name = "Strength Attack Away")]
         public int strength_attack_away { get; set; }
+        [Display(Name = "Strength Defence Home")]
         public int strength_defence_home { get; set; }
+        [Display(Name = "Strength Defence Away")]
         public int strength_defence_away { get; set; }
         public int pulse_id { get; set; }
 

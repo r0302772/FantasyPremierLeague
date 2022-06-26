@@ -9,8 +9,74 @@
 <table class="table table-hover table-striped-columns">
     <thead>
         <tr>
-            <th></th>
-            <th>@Html.DisplayNameFor(model => model.teams[0].name)</th>
+            <th>
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["TeamSortParm"]">
+                    @Html.DisplayNameFor(model => model.teams[0].name)
+                </a>
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength)"
+                class="text-center">
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthSortParm"]">
+                    @Html.DisplayNameFor(model => model.teams[0].strength).Substring(0, 1)
+                </a>
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_overall_home)"
+                class="text-center">
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthOverallHomeSortParm"]">
+                    SOH
+                </a>
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_attack_home)"
+                class="text-center">
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthAttackHomeSortParm"]">
+                    SAH
+                </a>
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_defence_home)"
+                class="text-center">
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthDefenceHomeSortParm"]">
+                    SDH
+                </a>
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_overall_away)"
+                class="text-center">
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthOverallAwaySortParm"]">
+                    SOA
+                </a>
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_attack_away)"
+                class="text-center">
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthAttackAwaySortParm"]">
+                    SAA
+                </a>
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_defence_away)"
+                class="text-center">
+                <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthDefenceAwaySortParm"]">
+                    SDA
+                </a>
+            </th>
             <th>Next 5 Opponents (FDR)</th>
         </tr>
     </thead>
@@ -18,9 +84,15 @@
         @foreach (var team in Model.teams)
         {
             <tr>
-                <th scope="col">@(Model.teams.IndexOf(team) + 1)</th>
                 <td><a asp-action="Details" asp-route-id="@team.id">@team.name</a></td>
-                <td></td>
+                <td class="text-center">@team.strength</td>
+                <td class="text-center">@team.strength_overall_home</td>
+                <td class="text-center">@team.strength_attack_home</td>
+                <td class="text-center">@team.strength_defence_home</td>
+                <td class="text-center">@team.strength_overall_away</td>
+                <td class="text-center">@team.strength_attack_away</td>
+                <td class="text-center">@team.strength_defence_away</td>
+                <td>...Next 5 OPP</td>
             </tr>
         }
     </tbody>

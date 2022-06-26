@@ -91,12 +91,12 @@
                 data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes)">
                 @Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes).Substring(0, 1)
             </th>
-            @*<th data-bs-trigger="hover focus"
-            data-bs-toggle="popover"
-            data-bs-placement="top"
-            data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].points_per_game)">
-            PPG
-        </th>*@
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].points_per_game)">
+                PPG
+            </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
@@ -240,9 +240,10 @@
                 <td>@x.now_cost</td>
                 <td><a asp-controller="Element" asp-action="Details" asp-route-id="@x.id"><p>@x.web_name</p>(@x.first_name @x.second_name)</a></td>
                 <td>@x.minutes</td>
+                <td>@x.points_per_game</td>
                 <td>@x.total_points</td>
                 <td>@x.form</td>
-                <td>@x.selected_by_percent %</td>
+                <td>@x.selected_by_percent</td>
                 <td>@x.chance_of_playing_this_round %</td>
                 <td>@x.chance_of_playing_next_round %</td>
                 <td><p>@x.news</p>@x.news_added</td>
@@ -269,31 +270,130 @@
 
 <h2>Penalty Takers</h2>
 
-<table class="table table-hover table-striped-columns">
+<table class="table table-hover table-striped-columns text-center">
     <thead>
         <tr>
-            <th>Position</th>
-            <th>Cost</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].element_type)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].element_type).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].now_cost)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].now_cost).Substring(0, 1)
+            </th>
             <th>Name</th>
-            <th>Minutes Played</th>
-            <th>Points per game</th>
-            <th>Total points</th>
-            <th>Form</th>
-            <th>Selected</th>
-            @*<th>TransferIn (GW) / TransferOut (GW) </th>*@
-            <th>Plays This GW</th>
-            <th>Plays Next GW</th>
-            <th>News</th>
-            <th>Bonus</th>
-            <th>BPS</th>
-            <th>Influence</th>
-            <th>Creativity</th>
-            <th>Threath</th>
-            <th>ICT</th>
-            <th>Corners / Indirect Free Kicks</th>
-            <th>Direct Free Kicks</th>
-            <th>Penalties</th>
-            <th>Penalties Missed</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].points_per_game)">
+                PPG
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].total_points)">
+                P
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].form)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].form).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].selected_by_percent)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].selected_by_percent).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].chance_of_playing_this_round)">
+                COPTR
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].chance_of_playing_next_round)">
+                COPNR
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].news)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].news)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].bonus)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].bonus).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].bps)">
+                BPS
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].influence)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].influence).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].creativity)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].creativity).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].threat)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].threat).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].ict_index)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].ict_index).Substring(0, 3)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].corners_and_indirect_freekicks_order)">
+                CIFO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].direct_freekicks_order)">
+                DFO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].penalties_order)">
+                PO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].penalties_missed)">
+                PM
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -308,7 +408,6 @@
                 <td>@x.total_points</td>
                 <td>@x.form</td>
                 <td>@x.selected_by_percent %</td>
-                @*<td>@x.transfers_in (@x.transfers_in_event) / @x.transfers_out (@x.transfers_out_event)</td>*@
                 <td>@x.chance_of_playing_this_round %</td>
                 <td>@x.chance_of_playing_next_round %</td>
                 <td><p>@x.news</p>@x.news_added</td>
@@ -329,31 +428,130 @@
 
 <h2>Direct Free Kick Takers</h2>
 
-<table class="table table-hover table-striped-columns">
+<table class="table table-hover table-striped-columns text-center">
     <thead>
         <tr>
-            <th>Position</th>
-            <th>Cost</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].element_type)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].element_type).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].now_cost)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].now_cost).Substring(0, 1)
+            </th>
             <th>Name</th>
-            <th>Minutes Played</th>
-            <th>Points per game</th>
-            <th>Total points</th>
-            <th>Form</th>
-            <th>Selected</th>
-            @*<th>TransferIn (GW) / TransferOut (GW) </th>*@
-            <th>Plays This GW</th>
-            <th>Plays Next GW</th>
-            <th>News</th>
-            <th>Bonus</th>
-            <th>BPS</th>
-            <th>Influence</th>
-            <th>Creativity</th>
-            <th>Threath</th>
-            <th>ICT</th>
-            <th>Corners / Indirect Free Kicks</th>
-            <th>Direct Free Kicks</th>
-            <th>Penalties</th>
-            <th>Penalties Missed</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].points_per_game)">
+                PPG
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].total_points)">
+                P
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].form)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].form).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].selected_by_percent)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].selected_by_percent).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].chance_of_playing_this_round)">
+                COPTR
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].chance_of_playing_next_round)">
+                COPNR
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].news)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].news)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].bonus)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].bonus).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].bps)">
+                BPS
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].influence)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].influence).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].creativity)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].creativity).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].threat)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].threat).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].ict_index)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].ict_index).Substring(0, 3)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].corners_and_indirect_freekicks_order)">
+                CIFO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].direct_freekicks_order)">
+                DFO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].penalties_order)">
+                PO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].penalties_missed)">
+                PM
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -389,31 +587,130 @@
 
 <h2>Corners & Indirect Free Kick Takers</h2>
 
-<table class="table table-hover table-striped-columns">
+<table class="table table-hover table-striped-columns text-center">
     <thead>
         <tr>
-            <th>Position</th>
-            <th>Cost</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].element_type)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].element_type).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].now_cost)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].now_cost).Substring(0, 1)
+            </th>
             <th>Name</th>
-            <th>Minutes Played</th>
-            <th>Points per game</th>
-            <th>Total points</th>
-            <th>Form</th>
-            <th>Selected</th>
-            @*<th>TransferIn (GW) / TransferOut (GW) </th>*@
-            <th>Plays This GW</th>
-            <th>Plays Next GW</th>
-            <th>News</th>
-            <th>Bonus</th>
-            <th>BPS</th>
-            <th>Influence</th>
-            <th>Creativity</th>
-            <th>Threath</th>
-            <th>ICT</th>
-            <th>Corners / Indirect Free Kicks</th>
-            <th>Direct Free Kicks</th>
-            <th>Penalties</th>
-            <th>Penalties Missed</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].minutes).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].points_per_game)">
+                PPG
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].total_points)">
+                P
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].form)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].form).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].selected_by_percent)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].selected_by_percent).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].chance_of_playing_this_round)">
+                COPTR
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].chance_of_playing_next_round)">
+                COPNR
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].news)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].news)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].bonus)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].bonus).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].bps)">
+                BPS
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].influence)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].influence).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].creativity)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].creativity).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].threat)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].threat).Substring(0, 1)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].ict_index)">
+                @Html.DisplayNameFor(model => model.PlayersOfTeam[0].ict_index).Substring(0, 3)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].corners_and_indirect_freekicks_order)">
+                CIFO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].direct_freekicks_order)">
+                DFO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].penalties_order)">
+                PO
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.PlayersOfTeam[0].penalties_missed)">
+                PM
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -428,7 +725,6 @@
                 <td>@x.total_points</td>
                 <td>@x.form</td>
                 <td>@x.selected_by_percent %</td>
-                @*<td>@x.transfers_in (@x.transfers_in_event) / @x.transfers_out (@x.transfers_out_event)</td>*@
                 <td>@x.chance_of_playing_this_round %</td>
                 <td>@x.chance_of_playing_next_round %</td>
                 <td><p>@x.news</p>@x.news_added</td>
