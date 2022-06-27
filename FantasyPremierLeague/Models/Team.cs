@@ -54,5 +54,6 @@ namespace FantasyPremierLeague.Models
 
         //navigationproperties
         public List<Element> Elements { get; set; }
+        public List<Fixture> Fixtures { get; set; }
     }
 }

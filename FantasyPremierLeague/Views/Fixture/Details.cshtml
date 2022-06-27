@@ -4,29 +4,45 @@
     ViewData["Title"] = "Details Fixture";
 }
 
-<h2>Details</h2>
+<div class="text-center">
+    <h1 class="display-5">Details Fixture</h1>
+</div>
 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Gameweek</th>
-            <th>Home (FDR)</th>
-            <th>Away (FDR)</th>
-            <th>Score</th>
-            <th>Kickoff Time</th>
+            @*<th>@Html.DisplayNameFor(model => model.fixtures_list[0].id)</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.fixtures_list[0].Event)"
+                class="text-center">
+                GW
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fixtures_list[0].team_h)
+                (@Html.DisplayNameFor(model => model.fixtures_list[0].team_a_difficulty))
+            </th>
+            <th>@Html.DisplayNameFor(model => model.fixtures_list[0].team_h_score)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.fixtures_list[0].team_a)
+                (@Html.DisplayNameFor(model => model.fixtures_list[0].team_a_difficulty))
+            </th>
+            <th>@Html.DisplayNameFor(model => model.fixtures_list[0].kickoff_time)</th>
+            <th></th>*@
         </tr>
     </thead>
     <tbody>
-        @*@foreach (var x in Model.events)
+        @*@foreach (var item in Model.fixtures_list)
         {
             <tr>
-                <td>@x.id</td>
-                <td>@x.Event</td>
-                <td>@x.team_h (@x.team_a_difficulty)</td>
-                <td>@x.team_a (@x.team_h_difficulty)</td>
-                <td>@x.team_h_score - @x.team_a_score</td>
-                <td>@x.kickoff_time</td>
+                <td>@item.id</td>
+                <td>@item.Event</td>
+                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_h">@item.team_h_name</a> (@item.team_a_difficulty)</td>
+                <td>@item.team_h_score - @item.team_a_score</td>
+                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_a">@item.team_a_name</a> (@item.team_h_difficulty)</td>
+                <td>@item.kickoff_time</td>
+                <td><a asp-controller="Fixture" asp-action="Details" asp-route-id="@item.id">Details</a></td>
             </tr>
         }*@
     </tbody>

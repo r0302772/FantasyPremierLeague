@@ -49,20 +49,20 @@ namespace FantasyPremierLeague.Controllers
         {
             var data = GetBootstrapStatic().Result;
 
+            var elements_list = data.elements.ToList();
+
             var events_list = data.events.ToList();
 
-            List<string> top_element_first_and_web_names = new List<string>();
             foreach (var item in events_list)
             {
-                var element = data.elements.First(x => x.id == item.top_element);
+                var element = elements_list.First(x => x.id == item.top_element);
 
-                top_element_first_and_web_names.Add($"{element.first_name} {element.web_name}");
+                item.top_element_info.first_and_web_name = $"{element.first_name} {element.web_name}";
             }
 
             DreamteamListViewModel viewModel = new DreamteamListViewModel()
             {
-                events_list = events_list,
-                top_element_first_and_web_names = top_element_first_and_web_names
+                events_list = events_list
             };
 
             return View(viewModel);

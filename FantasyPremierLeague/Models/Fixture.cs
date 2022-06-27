@@ -42,6 +42,13 @@ namespace FantasyPremierLeague.Models
         public bool is_home { get; set; }
         [Display(Name = "FDR")]
         public int difficulty { get; set; } //FDR value calculated by FPL
+
+        //navigatieproperties
+        //public Team team { get; set; }
+
+        //extra props
+        public string team_h_name { get; set; }
+        public string team_a_name { get; set; }
     }
 }
 

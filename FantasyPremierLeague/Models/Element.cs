@@ -100,15 +100,19 @@ namespace FantasyPremierLeague.Models
         public string ict_index { get; set; }
         [Display(Name = "Influence Rank")]
         public int influence_rank { get; set; }
+        [Display(Name = "Influence Rank Position")]
         public int influence_rank_type { get; set; }
         [Display(Name = "Creativity Rank")]
         public int creativity_rank { get; set; }
+        [Display(Name = "Creativity Rank Position")]
         public int creativity_rank_type { get; set; }
         [Display(Name = "Threat Rank")]
         public int threat_rank { get; set; }
+        [Display(Name = "Threat Rank Position")]
         public int threat_rank_type { get; set; }
         [Display(Name = "ICT Index Rank")]
         public int ict_index_rank { get; set; }
+        [Display(Name = "ICT Index Rank Position")]
         public int ict_index_rank_type { get; set; }
         [Display(Name = "Corner & Indirect Freekicks Order")]
         public int? corners_and_indirect_freekicks_order { get; set; }
@@ -128,8 +132,10 @@ namespace FantasyPremierLeague.Models
         public Stats stats { get; set; }
 
         //navigationproperties
-        public Team Team_Object { get; set; }
-        public Element_Type Element_Type_Object { get; set; }
+        public Team Team { get; set; }
+        public Element_Type Element_Type { get; set; }
+
+
     }
 
 }

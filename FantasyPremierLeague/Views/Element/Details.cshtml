@@ -4,7 +4,10 @@
     ViewData["Title"] = $"Details {Model.element.web_name}";
 }
 
-<h2>Details @Model.element.first_name @Model.element.web_name</h2>
+<div class="text-center">
+    <h1 class="display-5">Details @Model.element.first_name @Model.element.web_name</h1>
+</div>
+
 <h3>@Model.element_type.singular_name</h3>
 <h3><a asp-controller="Team" asp-action="Details" asp-route-id="@Model.element.team">@Model.element.team</a></h3>
 

@@ -110,6 +110,12 @@ namespace FantasyPremierLeague.Controllers
             //}
             #endregion
 
+            foreach (var item in fixtures_list)
+            {
+                item.team_h_name = teams_list.First(x => x.id == item.team_h).name;
+                item.team_a_name = teams_list.First(x => x.id == item.team_a).name;
+            }
+
             FixtureListViewModel viewModel = new FixtureListViewModel()
             {
                 fixtures_list = fixtures_list,

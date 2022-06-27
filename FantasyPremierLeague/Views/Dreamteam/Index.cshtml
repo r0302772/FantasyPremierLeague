@@ -4,7 +4,9 @@
     ViewData["Title"] = "Players";
 }
 
-<h2>Dreamteams</h2>
+<div class="text-center">
+    <h1 class="display-5">Dreamteams</h1>
+</div>
 
 <table class="table table-hover">
     <thead>
@@ -24,7 +26,7 @@
                 </td>
                 <td>
                     <a asp-controller="Element" asp-action="Details" asp-route-id="@item.top_element_info.id">
-                        @Model.top_element_first_and_web_names[Model.events_list.IndexOf(item)]
+                        @item.top_element_info.first_and_web_name
                         (@item.top_element_info.points)
                     </a>
                 </td>
