@@ -34,19 +34,28 @@
 <table class="table table-hover table-striped-columns">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Position</th>
-            <th>Name</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].id)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].element_type)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].full_name)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].team_name)</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model.elements_list)
+        @foreach (var item in Model.elements_list)
         {
             <tr>
-                <td>@x.id</td>
-                <td>@x.element_type</td>
-                <td><a asp-action="Details" asp-route-id="@x.id">@x.first_name @x.web_name</a></td>
-                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@x.team">@x.team</a></td>
+                <td>@item.id</td>
+                <td>@item.element_type_short_name</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.id">
+                        @item.full_name
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Team" asp-action="Details" asp-route-id="@item.team">
+                        @item.team_name
+                    </a>
+                </td>
             </tr>
         }
     </tbody>

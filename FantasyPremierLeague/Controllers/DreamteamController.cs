@@ -28,12 +28,12 @@ namespace FantasyPremierLeague.Controllers
             return bootstrap_static;
         }
 
-        public async Task<Rootobject> GetDreamteamByEventId(int? id)
+        public async Task<Rootobject> GetDreamteamByEventId(int? event_id)
         {
             Rootobject dreamteam;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/dream-team/{id}/"))
+                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/dream-team/{event_id}/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     dreamteam = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
@@ -41,6 +41,21 @@ namespace FantasyPremierLeague.Controllers
             }
 
             return dreamteam;
+        }
+
+        public async Task<Rootobject> GetEventLiveDataByEventId(int? event_id)
+        {
+            Rootobject event_live_data;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/event/{event_id}/live/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    event_live_data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                }
+            }
+
+            return event_live_data;
         }
 
         #endregion
@@ -76,42 +91,32 @@ namespace FantasyPremierLeague.Controllers
 
             var team = dreamteam.team.ToList();
 
-            List<string> element_first_and_web_names = new List<string>();
+            var elements_list = data.elements.ToList();
+            var teams_list = data.teams.ToList();
 
             foreach (var item in team)
             {
-                var element = data.elements.First(x => x.id == item.element);
+                var element = elements_list.First(x => x.id == item.element);
+                var element_team = teams_list.First(x => x.id == element.team);
 
-                element_first_and_web_names.Add($"{element.first_name} {element.web_name}");
+                item.first_and_web_name = element.full_name;
+                item.team = element.team;
+                item.team_name = element_team.name;
             }
 
-            //var prediction = data.elements.Where(x =>
-            //                                     x.element_type == 1 &&
-            //                                     x.team == 1).ToList();
+            var event_live_data = GetEventLiveDataByEventId(id).Result;
 
+            var dreamteam_prediction = event_live_data.elements.OrderByDescending(x => double.Parse(x.stats.ict_index)).Take(11).ToList();
 
-            //List<History> predictionSummary = new List<History>();
-            //foreach (var item in prediction)
-            //{
-            //    Rootobject summaryData;
-            //    using (var httpClient = new HttpClient())
-            //    {
-            //        using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/element-summary/{item.id}/"))
-            //        {
-            //            string apiResponse = await response.Content.ReadAsStringAsync();
-            //            summaryData = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-            //        }
-            //    }
-            //    var round = summaryData.history.FirstOrDefault(x => x.round == id);
-            //    predictionSummary.Add(round);
-            //}
-
-
+            foreach (var item in dreamteam_prediction)
+            {
+                item.web_name = elements_list.First(x => x.id == item.id).web_name;
+            }
 
             DreamteamDetailViewModel viewModel = new DreamteamDetailViewModel()
             {
                 team = team,
-                element_first_and_web_names = element_first_and_web_names,
+                dreamteam_prediction = dreamteam_prediction
             };
 
             return View(viewModel);

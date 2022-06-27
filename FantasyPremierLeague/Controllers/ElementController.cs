@@ -93,6 +93,12 @@ namespace FantasyPremierLeague.Controllers
             }
             #endregion
 
+            foreach (var item in elements_list)
+            {
+                item.element_type_short_name = element_types_list.First(x => x.id == item.element_type).singular_name_short;
+                item.team_name = teams_list.First(x => x.id == item.team).name;
+            }
+
             ElementListViewModel viewModel = new ElementListViewModel()
             {
                 elements_list = elements_list,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FantasyPremierLeague.Models
 {
@@ -8,6 +9,7 @@ namespace FantasyPremierLeague.Models
     public class Event
     {
         public int id { get; set; }
+        [Display(Name = "Gameweek")]
         public string name { get; set; }
         public DateTime deadline_time { get; set; }
         public int average_entry_score { get; set; }
@@ -25,6 +27,7 @@ namespace FantasyPremierLeague.Models
         //public Chip_Plays[] chip_plays { get; set; }
         public int most_selected { get; set; }
         public int most_transferred_in { get; set; }
+        [Display(Name = "Most Valuable Player")]
         public int top_element { get; set; } //refers to the id in Element class
         public Top_Element_Info top_element_info { get; set; }
         public int transfers_made { get; set; }

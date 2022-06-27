@@ -135,7 +135,12 @@ namespace FantasyPremierLeague.Models
         //public Team Team { get; set; }
         //public Element_Type Element_Type { get; set; }
 
-
+        //extra props
+        public string element_type_short_name { get; set; }
+        [Display(Name = "Club")]
+        public string team_name { get; set; }
+        [Display(Name = "Name")]
+        public string full_name { get { return $"{first_name} {web_name}"; } }
     }
 
 }

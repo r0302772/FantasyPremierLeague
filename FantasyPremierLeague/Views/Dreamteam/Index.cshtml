@@ -11,17 +11,24 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Gameweek</th>
-            <th>MVP</th>
+            <th></th>
+            <th>@Html.DisplayNameFor(model => model.events_list[0].name)</th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.events_list[0].top_element)">
+                MVP
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.events_list)
         {
             <tr>
+                <th scope="col">@item.id</th>
                 <td>
                     <a asp-controller="Dreamteam" asp-action="Details" asp-route-id="@item.id">
-                        @item.id
+                        @item.name
                     </a>
                 </td>
                 <td>
