@@ -36,6 +36,13 @@
     </div>
 </form>
 
+<div>
+    <span>Winner prediction true = @Model.prediction_true_count / @Model.fixtures_list.Count | </span>
+    <span>Hometeam won = @Model.team_h_win_count / @Model.fixtures_list.Count | </span>
+    <span>Draw prediction = @Model.draw_predicted_count / @Model.fixtures_list.Count | </span>
+    <span>Draws = @Model.draw_count / @Model.fixtures_list.Count | </span>
+</div>
+
 <table class="table table-hover table-striped-columns">
     <thead>
         <tr>

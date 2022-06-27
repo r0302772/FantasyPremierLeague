@@ -110,35 +110,53 @@ namespace FantasyPremierLeague.Controllers
             //}
             #endregion
 
+            int prediction_true_count = 0;
+            int team_h_win_count = 0;
+            int draw_count = 0;
+            int draw_predicted_count = 0;
+
             foreach (var item in fixtures_list)
             {
                 item.team_h_name = teams_list.First(x => x.id == item.team_h).name;
                 item.team_a_name = teams_list.First(x => x.id == item.team_a).name;
-                if (item.team_h_difficulty < item.team_a_difficulty)
-                {
-                    item.predicted_winner = item.team_h_name;
-                }
-                else if (item.team_h_difficulty > item.team_a_difficulty)
+                if (item.team_h_difficulty > item.team_a_difficulty)
                 {
                     item.predicted_winner = item.team_a_name;
+                }
+                else if (item.team_h_difficulty < item.team_a_difficulty)
+                {
+                    item.predicted_winner = item.team_h_name;
                 }
                 else if (item.team_h_difficulty == item.team_a_difficulty)
                 {
                     item.predicted_winner = "Draw";
+                    draw_predicted_count++;
+
                 }
 
-                if (item.team_h_score > item.team_a_score)
+                if (item.finished)
                 {
-                    item.actual_winner = item.team_h_name;
+                    if (item.team_h_score > item.team_a_score)
+                    {
+                        item.actual_winner = item.team_h_name;
+                        team_h_win_count++;
+                    }
+                    else if (item.team_h_score < item.team_a_score)
+                    {
+                        item.actual_winner = item.team_a_name;
+                    }
+                    else if (item.team_h_score == item.team_a_score)
+                    {
+                        item.actual_winner = "Draw";
+                        draw_count++;
+                    }
+
+                    if (item.predicted_winner == item.actual_winner)
+                    {
+                        prediction_true_count++;
+                    }
                 }
-                else if (item.team_h_score < item.team_a_score)
-                {
-                    item.actual_winner = item.team_a_name;
-                }
-                else if (item.team_h_score == item.team_a_score)
-                {
-                    item.actual_winner = "Draw";
-                }
+
             }
 
             FixtureListViewModel viewModel = new FixtureListViewModel()
@@ -147,6 +165,10 @@ namespace FantasyPremierLeague.Controllers
                 teams_selectlist = teams_selectlist,
                 events_selectlist = events_selectlist,
                 phases_selectlist = phases_selectlist,
+                prediction_true_count = prediction_true_count,
+                team_h_win_count = team_h_win_count,
+                draw_count = draw_count,
+                draw_predicted_count = draw_predicted_count
             };
 
             return View(viewModel);

@@ -11,13 +11,14 @@
 <table class="table table-hover table-striped-columns">
     <thead>
         <tr>
-            <th data-bs-trigger="hover focus"
+            <th></th>
+            @*<th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
                 data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].entry)"
                 class="text-center">
                 ID
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.results_standings_list[0].entry_name) &
                 @Html.DisplayNameFor(model => model.results_standings_list[0].player_name)
@@ -67,17 +68,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model.results_standings_list)
+        @foreach (var item in Model.results_standings_list)
         {
             <tr>
-                <td class="text-center">@x.entry</td>
-                <td>@x.entry_name <br /> (@x.player_name)</td>
-                <td class="text-center">@x.event_total</td>
-                <td class="text-center">@x.total</td>
-                <td class="text-center">@x.point_difference_first_place</td>
-                <td class="text-center">@x.point_difference_last_place</td>
-                <td class="text-center">@x.point_difference_place_up</td>
-                <td class="text-center">@x.point_difference_place_down</td>
+                <th scope="col">@(Model.results_standings_list.IndexOf(item) + 1)</th>
+                @*<td class="text-center">@item.entry</td>*@
+                <td>@item.entry_name <br /> (@item.player_name)</td>
+                <td class="text-center">@item.event_total</td>
+                <td class="text-center">@item.total</td>
+                <td class="text-center">@item.point_difference_first_place</td>
+                <td class="text-center">@item.point_difference_last_place</td>
+                <td class="text-center">@item.point_difference_place_up</td>
+                <td class="text-center">@item.point_difference_place_down</td>
             </tr>
         }
     </tbody>

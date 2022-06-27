@@ -19,5 +19,10 @@ namespace FantasyPremierLeague.ViewModels
         public int team_id { get; set; }
         public int event_id { get; set; }
         public int phase_id { get; set; }
+
+        public int prediction_true_count { get; set; }
+        public int team_h_win_count { get; set; }
+        public int draw_count { get; set; }
+        public int draw_predicted_count { get; set; }
     }
 }
