@@ -2,8 +2,6 @@
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,23 +11,58 @@ namespace FantasyPremierLeague.Controllers
 {
     public class DreamteamController : Controller
     {
-        public async Task<IActionResult> Index()
+        #region API GetRequests
+        [NonAction]
+        public async Task<Rootobject> GetBootstrapStatic()
         {
-            Rootobject data;
+            Rootobject bootstrap_static;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
                 }
             }
 
-            var events = data.events.ToList();
+            return bootstrap_static;
+        }
+
+        public async Task<Rootobject> GetDreamteamByEventId(int? id)
+        {
+            Rootobject dreamteam;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/dream-team/{id}/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    dreamteam = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                }
+            }
+
+            return dreamteam;
+        }
+
+        #endregion
+
+        public async Task<IActionResult> Index()
+        {
+            var data = GetBootstrapStatic().Result;
+
+            var events_list = data.events.ToList();
+
+            List<string> top_element_first_and_web_names = new List<string>();
+            foreach (var item in events_list)
+            {
+                var element = data.elements.First(x => x.id == item.top_element);
+
+                top_element_first_and_web_names.Add($"{element.first_name} {element.web_name}");
+            }
 
             DreamteamListViewModel viewModel = new DreamteamListViewModel()
             {
-                events = events
+                events_list = events_list,
+                top_element_first_and_web_names = top_element_first_and_web_names
             };
 
             return View(viewModel);
@@ -37,38 +70,24 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
+            var data = GetBootstrapStatic().Result;
 
-            Rootobject dreamteamData;
-            using (var httpClient = new HttpClient())
+            var dreamteam = GetDreamteamByEventId(id).Result;
+
+            var team = dreamteam.team.ToList();
+
+            List<string> element_first_and_web_names = new List<string>();
+
+            foreach (var item in team)
             {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/dream-team/{id}/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    dreamteamData = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
+                var element = data.elements.First(x => x.id == item.element);
+
+                element_first_and_web_names.Add($"{element.first_name} {element.web_name}");
             }
 
-            Rootobject data;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
-
-            var team = dreamteamData.team.ToList();
-            List<Element> players = new List<Element>();
-            foreach (var player in team)
-            {
-                var found = data.elements.First(x => x.id == player.element);
-                players.Add(found);
-            }
-
-            var prediction = data.elements.Where(x =>
-                                                 x.element_type == 1 &&
-                                                 x.team == 1).ToList();
+            //var prediction = data.elements.Where(x =>
+            //                                     x.element_type == 1 &&
+            //                                     x.team == 1).ToList();
 
 
             //List<History> predictionSummary = new List<History>();
@@ -92,8 +111,7 @@ namespace FantasyPremierLeague.Controllers
             DreamteamDetailViewModel viewModel = new DreamteamDetailViewModel()
             {
                 team = team,
-                Players = players,
-                prediction = prediction
+                element_first_and_web_names = element_first_and_web_names,
             };
 
             return View(viewModel);

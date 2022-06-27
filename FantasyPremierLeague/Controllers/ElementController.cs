@@ -33,7 +33,7 @@ namespace FantasyPremierLeague.Controllers
         }
 
         [NonAction]
-        public async Task<Rootobject> GetElementSummaryById(int id)
+        public async Task<Rootobject> GetElementSummaryById(int? id)
         {
             Rootobject element_summary;
             using (var httpClient = new HttpClient())
@@ -104,7 +104,7 @@ namespace FantasyPremierLeague.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
             var data = GetBootstrapStatic().Result;
 

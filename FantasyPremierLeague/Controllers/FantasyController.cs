@@ -38,12 +38,13 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> LeagueStandings(int? id)
         {
-            var zaadschieters_league_id = 12695;
-            var data = GetLeagueStandingsByLeagueId(zaadschieters_league_id).Result;
+            var data = GetLeagueStandingsByLeagueId(id).Result;
 
             var league = data.league;
-            var standings = data.standings;
-            var results_standings_list = standings.results.ToList();
+            var results_standings_list = data.standings.results.ToList();
+            var results_new_entries_list = data.new_entries.results.ToList();
+
+            results_standings_list.AddRange(results_new_entries_list);
 
             foreach (var item in results_standings_list)
             {

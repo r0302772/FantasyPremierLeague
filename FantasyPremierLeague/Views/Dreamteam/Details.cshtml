@@ -15,12 +15,13 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.team.Count; i++)
+        @foreach (var item in Model.team)
         {
             <tr>
-                <td>@Model.team[i].position</td>
-                <td><a asp-controller="Element" asp-action="Details" asp-route-id="@Model.Players[i].id">@Model.Players[i].web_name</a></td>
-                <td>@Model.team[i].points</td>
+                <td>@item.position</td>
+                <td>@Model.element_first_and_web_names[Model.team.IndexOf(item)]</td>
+                @*<td><a asp-controller="Element" asp-action="Details" asp-route-id="@Model.Players[i].id">@Model.Players[i].web_name</a></td>*@
+                <td>@item.points</td>
             </tr>
         }
     </tbody>
@@ -37,11 +38,11 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.prediction.Count; i++)
-        {
-            <tr>
-                <td><a asp-controller="Element" asp-action="Details" asp-route-id="@Model.prediction[i].id">@Model.prediction[i].web_name</a></td>
-            </tr>
-        }
+        @*@for (int i = 0; i < Model.prediction.Count; i++)
+            {
+                <tr>
+                    <td><a asp-controller="Element" asp-action="Details" asp-route-id="@Model.prediction[i].id">@Model.prediction[i].web_name</a></td>
+                </tr>
+            }*@
     </tbody>
 </table>

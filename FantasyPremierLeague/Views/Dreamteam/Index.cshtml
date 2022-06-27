@@ -14,11 +14,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model.events)
+        @foreach (var item in Model.events_list)
         {
             <tr>
-                <td><a asp-controller="Dreamteam" asp-action="Details" asp-route-id="@x.id">@x.id</a></td>
-                <td><a asp-controller="Element" asp-action="Details" asp-route-id="@x.top_element_info.id">@x.top_element_info.id (@x.top_element_info.points)</a></td>
+                <td>
+                    <a asp-controller="Dreamteam" asp-action="Details" asp-route-id="@item.id">
+                        @item.id
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Element" asp-action="Details" asp-route-id="@item.top_element_info.id">
+                        @Model.top_element_first_and_web_names[Model.events_list.IndexOf(item)]
+                        (@item.top_element_info.points)
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
