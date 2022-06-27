@@ -11,22 +11,22 @@
         <tr>
             <th>
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].name)
+                    @Html.DisplayNameFor(model => model.teams_list[0].name)
                 </a>
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].strength)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].strength).Substring(0, 1)
+                    @Html.DisplayNameFor(model => model.teams_list[0].strength).Substring(0, 1)
                 </a>
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_overall_home)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].strength_overall_home)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthOverallHomeSortParm"]">
                     SOH
@@ -35,7 +35,7 @@
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_attack_home)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].strength_attack_home)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthAttackHomeSortParm"]">
                     SAH
@@ -44,7 +44,7 @@
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_defence_home)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].strength_defence_home)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthDefenceHomeSortParm"]">
                     SDH
@@ -53,7 +53,7 @@
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_overall_away)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].strength_overall_away)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthOverallAwaySortParm"]">
                     SOA
@@ -62,7 +62,7 @@
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_attack_away)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].strength_attack_away)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthAttackAwaySortParm"]">
                     SAA
@@ -71,7 +71,7 @@
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].strength_defence_away)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].strength_defence_away)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Index" asp-route-sortOrder="@ViewData["StrengthDefenceAwaySortParm"]">
                     SDA
@@ -81,7 +81,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var team in Model.teams)
+        @foreach (var team in Model.teams_list)
         {
             <tr>
                 <td><a asp-action="Details" asp-route-id="@team.id">@team.name</a></td>

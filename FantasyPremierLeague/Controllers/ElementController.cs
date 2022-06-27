@@ -15,23 +15,50 @@ namespace FantasyPremierLeague.Controllers
 {
     public class ElementController : Controller
     {
-        public async Task<IActionResult> Index(string team_id, string element_type_id)
+        #region API GetRequests
+        [NonAction]
+        public async Task<Rootobject> GetBootstrapStatic()
         {
-            Rootobject data;
+            Rootobject bootstrap_static;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
                 }
             }
 
-            var elements = data.elements.OrderBy(x => x.team).ThenBy(x => x.id).ToList();
-            var teamsList = data.teams.ToList();
-            var elementTypesList = data.element_types.ToList();
+            return bootstrap_static;
+        }
 
-            List<SelectListItem> teamsSelectList = teamsList.ConvertAll(x =>
+        [NonAction]
+        public async Task<Rootobject> GetElementSummaryById(int id)
+        {
+            Rootobject element_summary;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/element-summary/{id}/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    element_summary = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                }
+            }
+
+            return element_summary;
+        }
+        #endregion
+
+        public async Task<IActionResult> Index(string team_id, string element_type_id)
+        {
+            var data = GetBootstrapStatic().Result;
+
+            var elements_list = data.elements.OrderBy(x => x.team).ThenBy(x => x.id).ToList();
+            var teams_list = data.teams.ToList();
+            var element_types_list = data.element_types.ToList();
+
+            #region SelectLists
+            List<SelectListItem> teams_selectlist = teams_list.ConvertAll(x =>
             {
                 return new SelectListItem()
                 {
@@ -41,7 +68,14 @@ namespace FantasyPremierLeague.Controllers
                 };
             });
 
-            List<SelectListItem> elementTypesSelectList = elementTypesList.ConvertAll(x =>
+            if (!string.IsNullOrEmpty(team_id))
+            {
+                elements_list = elements_list
+                                   .Where(x => x.team.ToString() == team_id)
+                                   .OrderBy(x => x.element_type).ToList();
+            }
+
+            List<SelectListItem> element_types_selectlist = element_types_list.ConvertAll(x =>
             {
                 return new SelectListItem()
                 {
@@ -51,98 +85,66 @@ namespace FantasyPremierLeague.Controllers
                 };
             });
 
-            if (!string.IsNullOrEmpty(team_id))
-            {
-                elements = elements
-                                   .Where(x => x.team.ToString() == team_id)
-                                   .OrderBy(x => x.element_type).ToList();
-            }
-
             if (!string.IsNullOrEmpty(element_type_id))
             {
-                elements = elements
+                elements_list = elements_list
                                    .Where(x => x.element_type.ToString() == element_type_id)
                                    .OrderBy(x => x.team).ToList();
             }
+            #endregion
 
             ElementListViewModel viewModel = new ElementListViewModel()
             {
-                elements = elements,
-                teams_selectlist = teamsSelectList,
-                element_types_selectlist = elementTypesSelectList
+                elements_list = elements_list,
+                teams_selectlist = teams_selectlist,
+                element_types_selectlist = element_types_selectlist
             };
 
 
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            Rootobject data;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
+            var data = GetBootstrapStatic().Result;
 
-            Rootobject summaryData;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/element-summary/{id}/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    summaryData = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
+            var element_summary = GetElementSummaryById(id).Result;
 
             var element = data.elements.FirstOrDefault(x => x.id == id);
             var element_type = data.element_types.FirstOrDefault(x => x.id == element.element_type);
-            var history = summaryData.history;
-            var costDifference = history.Last().value - history.First().value;
+            var element_history = element_summary.history;
+            var value_difference = element_history.Last().value - element_history.First().value;
 
             ElementDetailsViewModel viewModel = new ElementDetailsViewModel()
             {
                 element_type = element_type,
                 element = element,
-                history = history,
-                CostDifference = costDifference
+                element_history = element_history,
+                value_difference = value_difference
             };
 
             return View(viewModel);
         }
 
-        public async Task<IActionResult> SetPieceTakers(string team_id, string element_type_id, string set_piece_id)
+        public async Task<IActionResult> SetPieceTakers(string team_id,
+                                                        string element_type_id,
+                                                        string set_piece_id)
         {
-            #region API GetData Rootobject
-            Rootobject data;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
+            var data = GetBootstrapStatic().Result;
 
-            if (data == null) { return NotFound(); }
-            #endregion
+            var teams_list = data.teams.ToList();
+            var teams_count = teams_list.Count();
 
-            var teamsList = data.teams.ToList();
-            var teams_count = teamsList.Count();
+            var element_types_list = data.element_types.ToList();
+            var element_types_count = element_types_list.Count();
 
-            var elementTypesList = data.element_types.ToList();
-            var element_types_count = elementTypesList.Count();
-
-            var elements = data.elements.Where(x => x.corners_and_indirect_freekicks_order != null ||
+            var elements_list = data.elements.Where(x => x.corners_and_indirect_freekicks_order != null ||
                                                     x.direct_freekicks_order != null ||
                                                     x.penalties_order != null).ToList();
-            var elements_count = elements.Count();
+            var elements_count = elements_list.Count();
 
             #region SelectLists
-            List<SelectListItem> teamsSelectList = teamsList.ConvertAll(x =>
+            List<SelectListItem> teams_selectlist = teams_list.ConvertAll(x =>
             {
                 return new SelectListItem()
                 {
@@ -154,14 +156,14 @@ namespace FantasyPremierLeague.Controllers
 
             if (!string.IsNullOrEmpty(team_id))
             {
-                elements = elements
+                elements_list = elements_list
                                    .Where(x => x.team.ToString() == team_id)
                                    //.OrderByDescending(x => double.Parse(x.ict_index))
                                    //.ThenBy(x => x.element_type)
                                    .ToList();
             }
 
-            List<SelectListItem> elementTypesSelectList = elementTypesList.ConvertAll(x =>
+            List<SelectListItem> element_types_selectlist = element_types_list.ConvertAll(x =>
             {
                 return new SelectListItem()
                 {
@@ -173,12 +175,12 @@ namespace FantasyPremierLeague.Controllers
 
             if (!string.IsNullOrEmpty(element_type_id))
             {
-                elements = elements
+                elements_list = elements_list
                                    .Where(x => x.element_type.ToString() == element_type_id)
                                    .OrderBy(x => x.team).ToList();
             }
 
-            List<SelectListItem> setPieceSelectList = new List<SelectListItem>()
+            List<SelectListItem> set_piece_selectlist = new List<SelectListItem>()
             {
             new SelectListItem{Text = "Penalties", Value ="1", Selected = false },
             new SelectListItem{Text = "Direct Freekicks", Value ="2", Selected = false },
@@ -189,7 +191,7 @@ namespace FantasyPremierLeague.Controllers
             {
                 if (set_piece_id == "1")
                 {
-                    elements = elements
+                    elements_list = elements_list
                                        .Where(x => x.penalties_order != null)
                                        .OrderBy(x => x.penalties_order)
                                        //.ThenByDescending(x => double.Parse(x.ict_index))
@@ -197,7 +199,7 @@ namespace FantasyPremierLeague.Controllers
                 }
                 else if (set_piece_id == "2")
                 {
-                    elements = elements
+                    elements_list = elements_list
                                        .Where(x => x.direct_freekicks_order != null)
                                        .OrderBy(x => x.direct_freekicks_order)
                                        //.ThenByDescending(x => double.Parse(x.ict_index))
@@ -205,7 +207,7 @@ namespace FantasyPremierLeague.Controllers
                 }
                 else if (set_piece_id == "3")
                 {
-                    elements = elements
+                    elements_list = elements_list
                                        .Where(x => x.corners_and_indirect_freekicks_order != null)
                                        .OrderBy(x => x.corners_and_indirect_freekicks_order)
                                        //.ThenByDescending(x => double.Parse(x.ict_index))
@@ -216,10 +218,10 @@ namespace FantasyPremierLeague.Controllers
 
             ElementListViewModel viewModel = new ElementListViewModel()
             {
-                teams_selectlist = teamsSelectList,
-                element_types_selectlist = elementTypesSelectList,
-                set_piece_selectlist = setPieceSelectList,
-                elements = elements,
+                teams_selectlist = teams_selectlist,
+                element_types_selectlist = element_types_selectlist,
+                set_piece_selectlist = set_piece_selectlist,
+                elements_list = elements_list,
             };
 
             return View(viewModel);

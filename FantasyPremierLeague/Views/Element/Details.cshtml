@@ -13,7 +13,7 @@
         <tr>
             <th>GW</th>
             <th>Opponent</th>
-            <th>Cost (@Model.CostDifference)</th>
+            <th>Value (@Model.value_difference)</th>
             <th>Minutes Played (@Model.element.minutes)</th>
             <th>Pts (@Model.element.total_points)</th>
             @*
@@ -42,7 +42,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model.history)
+        @foreach (var x in Model.element_history)
         {
             <tr>
                 <td>@x.round</td>

@@ -38,51 +38,51 @@
 <table class="table table-hover table-striped-columns">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.elements[0].id)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].id)</th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.elements[0].element_type)"
+                data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].element_type)"
                 class="text-center">
-                @Html.DisplayNameFor(model => model.elements[0].element_type).Substring(0, 1)
+                @Html.DisplayNameFor(model => model.elements_list[0].element_type).Substring(0, 1)
             </th>
             <th>Name</th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.elements[0].goals_scored)"
+                data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].goals_scored)"
                 class="text-center">
-                @Html.DisplayNameFor(model => model.elements[0].goals_scored).Substring(0, 1)
+                @Html.DisplayNameFor(model => model.elements_list[0].goals_scored).Substring(0, 1)
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.elements[0].assists)"
+                data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].assists)"
                 class="text-center">
-                @Html.DisplayNameFor(model => model.elements[0].assists).Substring(0, 1)
+                @Html.DisplayNameFor(model => model.elements_list[0].assists).Substring(0, 1)
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.elements[0].bps)"
+                data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].bps)"
                 class="text-center">
                 BPS
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.elements[0].ict_index)"
+                data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].ict_index)"
                 class="text-center">
-                @Html.DisplayNameFor(model => model.elements[0].ict_index).Substring(0, 3)
+                @Html.DisplayNameFor(model => model.elements_list[0].ict_index).Substring(0, 3)
             </th>
-            <th>@Html.DisplayNameFor(model => model.elements[0].corners_and_indirect_freekicks_order)</th>
-            <th>@Html.DisplayNameFor(model => model.elements[0].direct_freekicks_order)</th>
-            <th>@Html.DisplayNameFor(model => model.elements[0].penalties_order)</th>
-            <th>@Html.DisplayNameFor(model => model.elements[0].penalties_missed)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].corners_and_indirect_freekicks_order)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].direct_freekicks_order)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].penalties_order)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].penalties_missed)</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model.elements)
+        @foreach (var x in Model.elements_list)
         {
             <tr>
                 <td>@x.id</td>

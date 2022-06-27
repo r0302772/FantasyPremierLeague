@@ -12,7 +12,7 @@ namespace FantasyPremierLeague.ViewModels
         public List<SelectListItem> teams_selectlist { get; set; }
         public List<SelectListItem> element_types_selectlist { get; set; }
         public List<SelectListItem> set_piece_selectlist { get; set; }
-        public List<Element> elements { get; set; }
+        public List<Element> elements_list { get; set; }
 
         public int team_id { get; set; }
         public int element_type_id { get; set; }

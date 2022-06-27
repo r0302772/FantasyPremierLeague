@@ -2,6 +2,7 @@
 
 namespace FantasyPremierLeague.Models
 {
+    //Endpoint path: element-summary/{element_id}/
     //A list of player’s previous fixtures and its match stats.
     public class History
     {

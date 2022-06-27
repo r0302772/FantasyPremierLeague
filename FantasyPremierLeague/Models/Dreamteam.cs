@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FantasyPremierLeague.Models
+﻿namespace FantasyPremierLeague.Models
 {
+    //Endpoint path: dream-team/{event_id}/
     //A list of the best players of the {event_id} gameweek
     public class Dreamteam
     {

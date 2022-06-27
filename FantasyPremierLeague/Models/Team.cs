@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FantasyPremierLeague.Models
 {
+    //Endpoint path: bootstrap-static/
     //Basic information of current Premier League clubs.
     public class Team
     {

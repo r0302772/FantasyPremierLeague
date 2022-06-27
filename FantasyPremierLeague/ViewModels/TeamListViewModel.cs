@@ -8,6 +8,6 @@ namespace FantasyPremierLeague.ViewModels
 {
     public class TeamListViewModel
     {
-        public List<Team> teams { get; set; }
+        public List<Team> teams_list { get; set; }
     }
 }

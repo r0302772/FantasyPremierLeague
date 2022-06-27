@@ -8,10 +8,10 @@ namespace FantasyPremierLeague.ViewModels
 {
     public class ElementDetailsViewModel
     {
-        public List<History> history { get; set; }
+        public List<History> element_history { get; set; }
         public Element element { get; set; }
         public Element_Type element_type { get; set; }
 
-        public double CostDifference { get; set; }
+        public double value_difference { get; set; }
     }
 }

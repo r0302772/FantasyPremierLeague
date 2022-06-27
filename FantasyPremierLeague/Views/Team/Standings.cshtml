@@ -10,75 +10,75 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.teams[0].position)
+                @Html.DisplayNameFor(model => model.teams_list[0].position)
             </th>
             <th>
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["NameSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].name)
+                    @Html.DisplayNameFor(model => model.teams_list[0].name)
                 </a>
             </th>
             <th>
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["PlayedSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].played)
+                    @Html.DisplayNameFor(model => model.teams_list[0].played)
                 </a>
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].win)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].win)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["WinSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].win).Substring(0, 1)
+                    @Html.DisplayNameFor(model => model.teams_list[0].win).Substring(0, 1)
                 </a>
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].draw)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].draw)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["DrawSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].draw).Substring(0, 1)
+                    @Html.DisplayNameFor(model => model.teams_list[0].draw).Substring(0, 1)
                 </a>
             </th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.teams[0].loss)"
+                data-bs-content="@Html.DisplayNameFor(model => model.teams_list[0].loss)"
                 class="text-center">
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["LossSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].loss).Substring(0, 1)
+                    @Html.DisplayNameFor(model => model.teams_list[0].loss).Substring(0, 1)
                 </a>
             </th>
             <th>
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["GoalsForSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].goals_for)
+                    @Html.DisplayNameFor(model => model.teams_list[0].goals_for)
                 </a>
             </th>
             <th>
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["GoalsAgainstSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].goals_against)
+                    @Html.DisplayNameFor(model => model.teams_list[0].goals_against)
                 </a>
             </th>
             <th>
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["GoalDifferenceSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].goal_difference)
+                    @Html.DisplayNameFor(model => model.teams_list[0].goal_difference)
                 </a>
             </th>
             <th>
                 <a asp-controller="Team" asp-action="Standings" asp-route-sortOrder="@ViewData["PointsSortParm"]">
-                    @Html.DisplayNameFor(model => model.teams[0].points)
+                    @Html.DisplayNameFor(model => model.teams_list[0].points)
                 </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.teams[0].form)
+                @Html.DisplayNameFor(model => model.teams_list[0].form)
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var team in Model.teams)
+        @foreach (var team in Model.teams_list)
         {
             <tr>
-                <th scope="col">@(Model.teams.IndexOf(team) + 1)</th>
+                <th scope="col">@(Model.teams_list.IndexOf(team) + 1)</th>
                 <td><a asp-action="Details" asp-route-id="@team.id">@team.name</a></td>
                 <td>@team.played</td>
                 <td class="text-center">@team.win</td>

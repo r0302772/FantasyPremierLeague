@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FantasyPremierLeague.Models
 {
+    //Endpoint path: bootstrap-static/
     //Information of all Premier League players including points,
     //status, value, match stats (goals, assists, etc.), ICT index, etc.
     public class Element
@@ -20,7 +21,6 @@ namespace FantasyPremierLeague.Models
         public int dreamteam_count { get; set; }
         [Display(Name = "Position")]
         public int element_type { get; set; } //refers to the id in the Element_Type class
-        public Element_Type Element_Type_Object { get; set; }
         public string ep_next { get; set; }
         public string ep_this { get; set; }
         public int event_points { get; set; }
@@ -49,7 +49,6 @@ namespace FantasyPremierLeague.Models
         public string status { get; set; }
         [Display(Name = "Team")]
         public int team { get; set; } //refers to the id in the Team class
-        public Team Team_Object { get; set; }
         public int team_code { get; set; }
         [Display(Name = "Total Points")]
         public int total_points { get; set; }
@@ -123,6 +122,14 @@ namespace FantasyPremierLeague.Models
         public int? penalties_order { get; set; }
         [Display(Name = "Penalties Text")]
         public string penalties_text { get; set; }
+
+        //Endpoint path: event/{event_id}/live/
+        //Gameweek Live Data gets id and stats
+        public Stats stats { get; set; }
+
+        //navigationproperties
+        public Team Team_Object { get; set; }
+        public Element_Type Element_Type_Object { get; set; }
     }
 
 }

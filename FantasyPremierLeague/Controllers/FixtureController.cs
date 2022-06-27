@@ -12,16 +12,10 @@ namespace FantasyPremierLeague.Controllers
 {
     public class FixtureController : Controller
     {
-        public async Task<IActionResult> Index()
+        #region API GetRequests
+        [NonAction]
+        public async Task<Rootobject> GetData()
         {
-            List<Fixture> fixtureList;
-            using (var httpClient = new HttpClient())
-            {
-                using var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/fixtures/");
-                string apiResponse = await response.Content.ReadAsStringAsync();
-                fixtureList = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
-            }
-
             Rootobject data;
             using (var httpClient = new HttpClient())
             {
@@ -32,9 +26,43 @@ namespace FantasyPremierLeague.Controllers
                 }
             }
 
+            return data;
+        }
+
+        [NonAction]
+        public async Task<List<Fixture>> GetFixtures()
+        {
+            List<Fixture> fixtureList;
+            using (var httpClient = new HttpClient())
+            {
+                using var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/fixtures/");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                fixtureList = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
+            }
+
+            return fixtureList;
+        }
+        #endregion
+
+        public async Task<IActionResult> Index()
+        {
+            var fixtures_list = GetFixtures().Result;
+
             FixtureListViewModel viewModel = new FixtureListViewModel()
             {
-                fixtures = fixtureList
+                fixtures_list = fixtures_list
+            };
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            var fixtures_list = GetFixtures().Result;
+
+            FixtureDetailsViewModel viewModel = new FixtureDetailsViewModel()
+            {
+                //fixtures = fixtures_list
             };
 
             return View(viewModel);

@@ -10,7 +10,7 @@ namespace FantasyPremierLeague.ViewModels
     public class FixtureListViewModel
     {
         //public PaginatedList<Fixture> Fixtures { get; set; }
-        public List<Fixture> fixtures { get; set; }
+        public List<Fixture> fixtures_list { get; set; }
         public int _event { get; set; }
 
         [DataType(DataType.Date)]

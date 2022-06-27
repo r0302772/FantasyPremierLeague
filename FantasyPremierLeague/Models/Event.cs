@@ -2,6 +2,7 @@
 
 namespace FantasyPremierLeague.Models
 {
+    //Endpoint path: bootstrap-static/
     //Basic information of every Gameweek such as average score,
     //highest score, top scoring player, most captained, etc.
     public class Event
