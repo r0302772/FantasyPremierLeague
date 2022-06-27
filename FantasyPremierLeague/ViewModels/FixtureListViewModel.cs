@@ -1,4 +1,5 @@
 ﻿using FantasyPremierLeague.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,16 +10,14 @@ namespace FantasyPremierLeague.ViewModels
 {
     public class FixtureListViewModel
     {
-        //public PaginatedList<Fixture> Fixtures { get; set; }
         public List<Fixture> fixtures_list { get; set; }
-        public int _event { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime kickoff_time { get; set; }
-        public int minutes { get; set; }
-        public int team_a { get; set; }
-        public int team_a_score { get; set; }
-        public int team_h { get; set; }
-        public int team_h_score { get; set; }
+        public List<SelectListItem> teams_selectlist { get; set; }
+        public List<SelectListItem> events_selectlist { get; set; }
+        public List<SelectListItem> phases_selectlist { get; set; }
+
+        public int team_id { get; set; }
+        public int event_id { get; set; }
+        public int phase_id { get; set; }
     }
 }

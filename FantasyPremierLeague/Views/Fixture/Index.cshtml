@@ -6,6 +6,34 @@
 
 <h2>All Fixtures</h2>
 
+<form asp-controller="Fixture" asp-action="Index">
+    <div class="row mb-3">
+        <div class="col-3">
+            <label for="team" class="col-form-label">Team</label>
+            <select class="form-select" asp-for="@Model.team_id" asp-items="@Model.teams_selectlist" id="team">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="event" class="col-form-label">Gameweek</label>
+            <select class="form-select" asp-for="@Model.event_id" asp-items="@Model.events_selectlist" id="event">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="phase" class="col-form-label">Phase</label>
+            <select class="form-select" asp-for="@Model.phase_id" asp-items="@Model.phases_selectlist" id="phase">
+            </select>
+        </div>
+        @*Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />*@
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <input type="submit" value="Filter" />
+        </div>
+    </div>
+</form>
+
 <table class="table table-hover">
     <thead>
         <tr>

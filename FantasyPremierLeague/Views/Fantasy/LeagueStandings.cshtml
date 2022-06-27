@@ -1,0 +1,82 @@
+﻿@model FantasyPremierLeague.ViewModels.LeagueDetailsViewModel
+
+@{
+    ViewData["Title"] = $"{Model.league.name}";
+}
+
+<h2>@Model.league.name</h2>
+
+<table class="table table-hover table-striped-columns">
+    <thead>
+        <tr>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].entry)"
+                class="text-center">
+                ID
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.results_standings_list[0].entry_name) &
+                @Html.DisplayNameFor(model => model.results_standings_list[0].player_name)
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].event_total)"
+                class="text-center">
+                GW
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].total)"
+                class="text-center">
+                Pts.
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].point_difference_first_place)"
+                class="text-center">
+                PDFP
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].point_difference_last_place)"
+                class="text-center">
+                PDLP
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].point_difference_place_up)"
+                class="text-center">
+                PDPU
+            </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.results_standings_list[0].point_difference_place_down)"
+                class="text-center">
+                PDPD
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.results_standings_list)
+        {
+            <tr>
+                <td class="text-center">@x.entry</td>
+                <td>@x.entry_name <br /> (@x.player_name)</td>
+                <td class="text-center">@x.event_total</td>
+                <td class="text-center">@x.total</td>
+                <td class="text-center">@x.point_difference_first_place</td>
+                <td class="text-center">@x.point_difference_last_place</td>
+                <td class="text-center">@x.point_difference_place_up</td>
+                <td class="text-center">@x.point_difference_place_down</td>
+            </tr>
+        }
+    </tbody>
+</table>
