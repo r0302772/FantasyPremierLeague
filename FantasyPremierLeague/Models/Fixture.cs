@@ -49,6 +49,10 @@ namespace FantasyPremierLeague.Models
         //extra props
         public string team_h_name { get; set; }
         public string team_a_name { get; set; }
+        [Display(Name = "Predicted Winner")]
+        public string predicted_winner { get; set; }
+        [Display(Name = "Actual Winner")]
+        public string actual_winner{ get; set; }
     }
 }
 

@@ -46,7 +46,7 @@ namespace FantasyPremierLeague.Controllers
         #endregion
 
         public async Task<IActionResult> Index(string team_id, string event_id, string phase_id)
-        {   
+        {
             var data = GetBootstrapStatic().Result;
 
             var fixtures_list = GetFixtures().Result;
@@ -114,6 +114,31 @@ namespace FantasyPremierLeague.Controllers
             {
                 item.team_h_name = teams_list.First(x => x.id == item.team_h).name;
                 item.team_a_name = teams_list.First(x => x.id == item.team_a).name;
+                if (item.team_h_difficulty < item.team_a_difficulty)
+                {
+                    item.predicted_winner = item.team_h_name;
+                }
+                else if (item.team_h_difficulty > item.team_a_difficulty)
+                {
+                    item.predicted_winner = item.team_a_name;
+                }
+                else if (item.team_h_difficulty == item.team_a_difficulty)
+                {
+                    item.predicted_winner = "Draw";
+                }
+
+                if (item.team_h_score > item.team_a_score)
+                {
+                    item.actual_winner = item.team_h_name;
+                }
+                else if (item.team_h_score < item.team_a_score)
+                {
+                    item.actual_winner = item.team_a_name;
+                }
+                else if (item.team_h_score == item.team_a_score)
+                {
+                    item.actual_winner = "Draw";
+                }
             }
 
             FixtureListViewModel viewModel = new FixtureListViewModel()

@@ -132,8 +132,8 @@ namespace FantasyPremierLeague.Models
         public Stats stats { get; set; }
 
         //navigationproperties
-        public Team Team { get; set; }
-        public Element_Type Element_Type { get; set; }
+        //public Team Team { get; set; }
+        //public Element_Type Element_Type { get; set; }
 
 
     }
