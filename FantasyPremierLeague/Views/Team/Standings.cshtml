@@ -80,7 +80,7 @@
         @foreach (var team in Model.teams_list)
         {
             <tr>
-                <th scope="col">@(Model.teams_list.IndexOf(team) + 1)</th>
+                <th scope="col">@team.position</th>
                 <td><a asp-action="Details" asp-route-id="@team.id">@team.name</a></td>
                 <td>@team.played</td>
                 <td class="text-center">@team.win</td>

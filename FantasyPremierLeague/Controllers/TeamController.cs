@@ -167,31 +167,31 @@ namespace FantasyPremierLeague.Controllers
                 team.points = team.win * 3 + team.draw;
             }
 
-            var playersOfTeam = data.elements.Where(x => x.team == team.id)
+            var team_elements = data.elements.Where(x => x.team == team.id)
                                              .OrderBy(x => x.element_type)
                                              .ToList();
 
-            var cornersAndIndirectFreekickTakers = playersOfTeam.Where(x =>
+            var corners_and_indirect_freekicks_elements = team_elements.Where(x =>
                                             x.corners_and_indirect_freekicks_order != null)
                                             .OrderBy(x => x.corners_and_indirect_freekicks_order)
                                             .ToList();
 
-            var directFreekickTakers = playersOfTeam.Where(x =>
+            var direct_freekicks_elements = team_elements.Where(x =>
                                             x.direct_freekicks_order != null)
                                             .OrderBy(x => x.direct_freekicks_order)
                                             .ToList();
 
-            var penaltyTakers = playersOfTeam.Where(x =>
+            var penalties_elements = team_elements.Where(x =>
                                             x.penalties_order != null)
                                             .OrderBy(x => x.penalties_order)
                                             .ToList();
 
             TeamDetailsViewModel viewModel = new TeamDetailsViewModel()
             {
-                PlayersOfTeam = playersOfTeam,
-                CornersAndIndirectFreekickTakers = cornersAndIndirectFreekickTakers,
-                DirectFreekickTakers = directFreekickTakers,
-                PenaltyTakers = penaltyTakers,
+                team_elements = team_elements,
+                corners_and_indirect_freekicks_elements = corners_and_indirect_freekicks_elements,
+                direct_freekicks_elements = direct_freekicks_elements,
+                penalties_elements = penalties_elements,
                 //team = team
                 short_name = team.short_name,
                 name = team.name,
@@ -269,6 +269,13 @@ namespace FantasyPremierLeague.Controllers
                     }
                 }
                 team.points = team.win * 3 + team.draw;
+            }
+
+            var sorted_teams_list = teams_list.OrderByDescending(x => x.points).ToList();
+
+            foreach (var item in sorted_teams_list)
+            {
+                item.position = (sorted_teams_list.IndexOf(item) + 1);
             }
 
             #region sortOrder

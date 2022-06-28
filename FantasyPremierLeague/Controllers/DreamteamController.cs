@@ -12,7 +12,6 @@ namespace FantasyPremierLeague.Controllers
     public class DreamteamController : Controller
     {
         #region API GetRequests
-        [NonAction]
         public async Task<Rootobject> GetBootstrapStatic()
         {
             Rootobject bootstrap_static;
@@ -60,6 +59,10 @@ namespace FantasyPremierLeague.Controllers
 
         #endregion
 
+        #region Methods
+
+        #endregion
+
         public async Task<IActionResult> Index()
         {
             var data = GetBootstrapStatic().Result;
@@ -87,19 +90,19 @@ namespace FantasyPremierLeague.Controllers
         {
             var data = GetBootstrapStatic().Result;
 
-            var dreamteam = GetDreamteamByEventId(id).Result;
+            var dreamteam_data = GetDreamteamByEventId(id).Result;
 
-            var team = dreamteam.team.ToList();
+            var dreamteam = dreamteam_data.team.ToList();
 
             var elements_list = data.elements.ToList();
             var teams_list = data.teams.ToList();
 
-            foreach (var item in team)
+            foreach (var item in dreamteam)
             {
                 var element = elements_list.First(x => x.id == item.element);
                 var element_team = teams_list.First(x => x.id == element.team);
 
-                item.first_and_web_name = element.full_name;
+                item.first_name_and_web_name = $"{element.first_name} {element.web_name}";
                 item.team = element.team;
                 item.team_name = element_team.name;
             }
@@ -110,12 +113,13 @@ namespace FantasyPremierLeague.Controllers
 
             foreach (var item in dreamteam_prediction)
             {
-                item.web_name = elements_list.First(x => x.id == item.id).web_name;
+                var element = elements_list.First(x => x.id == item.id);
+                item.first_name_and_web_name = $"{element.first_name} {element.web_name}";
             }
 
             DreamteamDetailViewModel viewModel = new DreamteamDetailViewModel()
             {
-                team = team,
+                dreamteam = dreamteam,
                 dreamteam_prediction = dreamteam_prediction
             };
 

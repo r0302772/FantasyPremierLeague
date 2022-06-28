@@ -11,18 +11,21 @@
 <form asp-controller="Element" asp-action="Index">
     <div class="row mb-3">
         <div class="col-3">
+            <label for="element_name" class="col-form-label">Find by name:</label>
+            <input class="form-control" type="text" name="search_string" value="@ViewData["CurrentFilter"]" id="element_name"/>
+        </div>
+        <div class="col-3">
             <label for="team" class="col-form-label">Team</label>
             <select class="form-select" asp-for="@Model.team_id" asp-items="@Model.teams_selectlist" id="team">
                 <option value="">All</option>
             </select>
         </div>
         <div class="col-3">
-            <label for="position" class="col-form-label">Position</label>
+            <label for="element_type" class="col-form-label">Position</label>
             <select class="form-select" asp-for="@Model.element_type_id" asp-items="@Model.element_types_selectlist" id="element_type">
                 <option value="">All</option>
             </select>
         </div>
-        @*Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />*@
     </div>
     <div class="row">
         <div class="col-auto">
@@ -36,8 +39,19 @@
         <tr>
             <th>@Html.DisplayNameFor(model => model.elements_list[0].id)</th>
             <th>@Html.DisplayNameFor(model => model.elements_list[0].element_type)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].full_name)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].first_name_and_web_name)</th>
             <th>@Html.DisplayNameFor(model => model.elements_list[0].team_name)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].goals_scored)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].assists)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].clean_sheets)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].saves)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].goals_conceded)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].bps)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].influence)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].creativity)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].threat)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].ict_index)</th>
+            <th>@Html.DisplayNameFor(model => model.elements_list[0].total_points)</th>
         </tr>
     </thead>
     <tbody>
@@ -48,7 +62,7 @@
                 <td>@item.element_type_short_name</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.id">
-                        @item.full_name
+                        @item.first_name_and_web_name
                     </a>
                 </td>
                 <td>
@@ -56,6 +70,17 @@
                         @item.team_name
                     </a>
                 </td>
+                <td>@item.goals_scored</td>
+                <td>@item.assists</td>
+                <td>@item.clean_sheets</td>
+                <td>@item.saves</td>
+                <td>@item.goals_conceded</td>
+                <td>@item.bps</td>
+                <td>@item.influence</td>
+                <td>@item.creativity</td>
+                <td>@item.threat</td>
+                <td>@item.ict_index</td>
+                <td>@item.total_points</td>
             </tr>
         }
     </tbody>

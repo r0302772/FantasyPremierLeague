@@ -53,6 +53,8 @@ namespace FantasyPremierLeague.Models
         public string predicted_winner { get; set; }
         [Display(Name = "Actual Winner")]
         public string actual_winner{ get; set; }
+        public int opponent_team { get; set; }
+        public string opponent_team_name { get; set; }
     }
 }
 

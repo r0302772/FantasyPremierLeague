@@ -49,8 +49,12 @@ namespace FantasyPremierLeague.Controllers
         }
         #endregion
 
-        public async Task<IActionResult> Index(string team_id, string element_type_id)
+        public async Task<IActionResult> Index(string team_id,
+                                               string element_type_id,
+                                               string search_string)
         {
+            ViewData["CurrentFilter"] = search_string;
+
             var data = GetBootstrapStatic().Result;
 
             var elements_list = data.elements.OrderBy(x => x.team).ThenBy(x => x.id).ToList();
@@ -68,13 +72,6 @@ namespace FantasyPremierLeague.Controllers
                 };
             });
 
-            if (!string.IsNullOrEmpty(team_id))
-            {
-                elements_list = elements_list
-                                   .Where(x => x.team.ToString() == team_id)
-                                   .OrderBy(x => x.element_type).ToList();
-            }
-
             List<SelectListItem> element_types_selectlist = element_types_list.ConvertAll(x =>
             {
                 return new SelectListItem()
@@ -84,17 +81,34 @@ namespace FantasyPremierLeague.Controllers
                     Selected = false
                 };
             });
+            #endregion
+
+            #region SearchParams
+            if (!string.IsNullOrEmpty(team_id))
+            {
+                elements_list = elements_list.Where(x => x.team.ToString() == team_id)
+                                             .OrderBy(x => x.element_type)
+                                             .ToList();
+            }
 
             if (!string.IsNullOrEmpty(element_type_id))
             {
-                elements_list = elements_list
-                                   .Where(x => x.element_type.ToString() == element_type_id)
-                                   .OrderBy(x => x.team).ToList();
+                elements_list = elements_list.Where(x => x.element_type.ToString() == element_type_id)
+                                             .OrderBy(x => x.team)
+                                             .ToList();
+            }
+
+            if (!string.IsNullOrEmpty(search_string))
+            {
+                elements_list = elements_list.Where(x => x.first_name.ToLower().Contains(search_string.ToLower()) ||
+                                                        x.web_name.ToLower().Contains(search_string.ToLower()))
+                                            .ToList();
             }
             #endregion
 
             foreach (var item in elements_list)
             {
+                item.first_name_and_web_name = $"{item.first_name} {item.web_name}";
                 item.element_type_short_name = element_types_list.First(x => x.id == item.element_type).singular_name_short;
                 item.team_name = teams_list.First(x => x.id == item.team).name;
             }
@@ -115,17 +129,48 @@ namespace FantasyPremierLeague.Controllers
             var data = GetBootstrapStatic().Result;
 
             var element_summary = GetElementSummaryById(id).Result;
-
+            var teams_list = data.teams.ToList();
             var element = data.elements.FirstOrDefault(x => x.id == id);
+            var element_team_name = data.teams.First(x => x.id == element.team).name;
             var element_type = data.element_types.FirstOrDefault(x => x.id == element.element_type);
             var element_history = element_summary.history;
+            var element_fixtures = element_summary.fixtures;
             var value_difference = element_history.Last().value - element_history.First().value;
+
+            foreach (var item in element_history)
+            {
+                item.opponent_team_name = teams_list.First(x => x.id == item.opponent_team).name;
+                if (item.was_home)
+                {
+                    item.h_or_a = "h".ToUpper();
+                }
+                else
+                {
+                    item.h_or_a = "a".ToUpper();
+                }
+            }
+
+            foreach (var item in element_fixtures)
+            {
+                var opponent = teams_list.First(x => x.id == item.team_h);
+                item.opponent_team = opponent.id;
+                item.opponent_team_name = opponent.name;
+
+                if (item.is_home)
+                {
+                    opponent = teams_list.First(x => x.id == item.team_a);
+                    item.opponent_team = opponent.id;
+                    item.opponent_team_name = opponent.name;
+                }
+            }
 
             ElementDetailsViewModel viewModel = new ElementDetailsViewModel()
             {
-                element_type = element_type,
                 element = element,
+                element_team_name = element_team_name,
+                element_type = element_type,
                 element_history = element_history,
+                element_fixtures = element_fixtures,
                 value_difference = value_difference
             };
 

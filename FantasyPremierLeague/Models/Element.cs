@@ -140,7 +140,7 @@ namespace FantasyPremierLeague.Models
         [Display(Name = "Club")]
         public string team_name { get; set; }
         [Display(Name = "Name")]
-        public string full_name { get { return $"{first_name} {web_name}"; } }
+        public string first_name_and_web_name { get; set; }
     }
 
 }

@@ -12,19 +12,19 @@
     <thead>
         <tr>
             <th></th>
-            <th>@Html.DisplayNameFor(model => model.team[0].first_and_web_name)</th>
-            <th>@Html.DisplayNameFor(model => model.team[0].points)</th>
-            <th>@Html.DisplayNameFor(model => model.team[0].team_name)</th>
+            <th>@Html.DisplayNameFor(model => model.dreamteam[0].first_name_and_web_name)</th>
+            <th>@Html.DisplayNameFor(model => model.dreamteam[0].points)</th>
+            <th>@Html.DisplayNameFor(model => model.dreamteam[0].team_name)</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.team)
+        @foreach (var item in Model.dreamteam)
         {
             <tr>
                 <th scope="col">@item.position</th>
                 <td>
                     <a asp-controller="Element" asp-action="Details" asp-route-id="@item.element">
-                        @item.first_and_web_name
+                        @item.first_name_and_web_name
                     </a>
                 </td>
                 @*<td><a asp-controller="Element" asp-action="Details" asp-route-id="@Model.Players[i].id">@Model.Players[i].web_name</a></td>*@
@@ -57,7 +57,7 @@
             <tr>
                 <td>
                     <a asp-controller="Element" asp-action="Details" asp-route-id="@item.id">
-                        @item.full_name
+                        @item.first_name_and_web_name
                     </a>
                 </td>
                <td>@item.stats.bps</td>

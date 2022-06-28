@@ -14,7 +14,7 @@ namespace FantasyPremierLeague.Models
 
         //extra props
         [Display(Name = "Name")]
-        public string first_and_web_name { get; set; }
+        public string first_name_and_web_name { get; set; }
         public int team { get; set; }
         [Display(Name = "Club")]
         public string team_name { get; set; }

@@ -37,5 +37,9 @@ namespace FantasyPremierLeague.Models
         public int selected { get; set; }
         public int transfers_in { get; set; }
         public int transfers_out { get; set; }
+
+        //extra props
+        public string opponent_team_name { get; set; }
+        public string h_or_a { get; set; }
     }
 }

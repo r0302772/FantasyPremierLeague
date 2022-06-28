@@ -57,9 +57,9 @@ namespace FantasyPremierLeague.ViewModels
         #endregion
 
         //public Team team { get; set; }
-        public List<Element> PlayersOfTeam { get; set; }
-        public List<Element> CornersAndIndirectFreekickTakers { get; set; }
-        public List<Element> DirectFreekickTakers { get; set; }
-        public List<Element> PenaltyTakers { get; set; }
+        public List<Element> team_elements { get; set; }
+        public List<Element> corners_and_indirect_freekicks_elements { get; set; }
+        public List<Element> direct_freekicks_elements { get; set; }
+        public List<Element> penalties_elements { get; set; }
     }
 }
