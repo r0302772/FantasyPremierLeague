@@ -231,42 +231,46 @@ namespace FantasyPremierLeague.Controllers
             {
                 foreach (var fixture in fixtures_list)
                 {
-                    if (fixture.team_h == team.id)
+                    if (fixture.finished)
                     {
-                        team.played++;
-                        team.goals_for += fixture.team_h_score;
-                        team.goals_against += fixture.team_a_score;
-                        if (fixture.team_h_score > fixture.team_a_score)
+                        if (fixture.team_h == team.id)
                         {
-                            team.win++;
+                            team.played++;
+                            team.goals_for += fixture.team_h_score;
+                            team.goals_against += fixture.team_a_score;
+                            if (fixture.team_h_score > fixture.team_a_score)
+                            {
+                                team.win++;
+                            }
+                            else if (fixture.team_h_score == fixture.team_a_score)
+                            {
+                                team.draw++;
+                            }
+                            else
+                            {
+                                team.loss++;
+                            }
                         }
-                        else if (fixture.team_h_score == fixture.team_a_score)
+                        else if (fixture.team_a == team.id)
                         {
-                            team.draw++;
-                        }
-                        else
-                        {
-                            team.loss++;
+                            team.played++;
+                            team.goals_for += fixture.team_a_score;
+                            team.goals_against += fixture.team_h_score;
+                            if (fixture.team_a_score > fixture.team_h_score)
+                            {
+                                team.win++;
+                            }
+                            else if (fixture.team_a_score == fixture.team_h_score)
+                            {
+                                team.draw++;
+                            }
+                            else
+                            {
+                                team.loss++;
+                            }
                         }
                     }
-                    else if (fixture.team_a == team.id)
-                    {
-                        team.played++;
-                        team.goals_for += fixture.team_a_score;
-                        team.goals_against += fixture.team_h_score;
-                        if (fixture.team_a_score > fixture.team_h_score)
-                        {
-                            team.win++;
-                        }
-                        else if (fixture.team_a_score == fixture.team_h_score)
-                        {
-                            team.draw++;
-                        }
-                        else
-                        {
-                            team.loss++;
-                        }
-                    }
+
                 }
                 team.points = team.win * 3 + team.draw;
             }

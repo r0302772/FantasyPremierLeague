@@ -12,17 +12,25 @@ namespace FantasyPremierLeague.Models
         public int? chance_of_playing_next_round { get; set; }
         [Display(Name = "Chance Of Playing This Round")]
         public int? chance_of_playing_this_round { get; set; }
+        [Display(Name = "Code")]
         public int code { get; set; }
+        [Display(Name = "Price Rise Gameweek")]
         public int cost_change_event { get; set; }
+        [Display(Name = "Price Fall Gameweek")]
         public int cost_change_event_fall { get; set; }
+        [Display(Name = "Price Rise Start")]
         public int cost_change_start { get; set; }
+        [Display(Name = "Price Fall Start")]
         public int cost_change_start_fall { get; set; }
         [Display(Name = "Dreamteam Count")]
         public int dreamteam_count { get; set; }
         [Display(Name = "Position")]
         public int element_type { get; set; } //refers to the id in the Element_Type class
+        [Display(Name = "EP Next")]
         public string ep_next { get; set; }
+        [Display(Name = "EP This")]
         public string ep_this { get; set; }
+        [Display(Name = "Gameweek Points")]
         public int event_points { get; set; }
         [Display(Name = "First Name")]
         public string first_name { get; set; }
@@ -30,6 +38,7 @@ namespace FantasyPremierLeague.Models
         public string form { get; set; }
         [Display(Name = "ID")]
         public int id { get; set; }
+        [Display(Name = "In Dreamteam")]
         public bool in_dreamteam { get; set; }
         [Display(Name = "News")]
         public string news { get; set; }
@@ -37,6 +46,7 @@ namespace FantasyPremierLeague.Models
         public DateTime? news_added { get; set; }
         [Display(Name = "Cost")]
         public int now_cost { get; set; }
+        [Display(Name = "Photo")]
         public string photo { get; set; }
         [Display(Name = "Points Per Game")]
         public string points_per_game { get; set; }
@@ -44,19 +54,25 @@ namespace FantasyPremierLeague.Models
         public string second_name { get; set; }
         [Display(Name = "Selected By %")]
         public string selected_by_percent { get; set; }
+        [Display(Name = "Special")]
         public bool special { get; set; }
+        [Display(Name = "Squad Number")]
         public object squad_number { get; set; }
+        [Display(Name = "Status")]
         public string status { get; set; }
         [Display(Name = "Team")]
         public int team { get; set; } //refers to the id in the Team class
+        [Display(Name = "Team Code")]
         public int team_code { get; set; }
         [Display(Name = "Total Points")]
         public int total_points { get; set; }
         [Display(Name = "Transfered In")]
         public int transfers_in { get; set; }
+        [Display(Name = "Transfered In This Gameweek")]
         public int transfers_in_event { get; set; }
         [Display(Name = "Transfered Out")]
         public int transfers_out { get; set; }
+        [Display(Name = "Transfered Out This Gameweek")]
         public int transfers_out_event { get; set; }
         [Display(Name = "Value Form")]
         public string value_form { get; set; }
@@ -130,10 +146,6 @@ namespace FantasyPremierLeague.Models
         //Endpoint path: event/{event_id}/live/
         //Gameweek Live Data gets id and stats
         public Stats stats { get; set; }
-
-        //navigationproperties
-        //public Team Team { get; set; }
-        //public Element_Type Element_Type { get; set; }
 
         //extra props
         public string element_type_short_name { get; set; }

@@ -5,10 +5,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-5">All Fixtures</h1>
+    <h1 class="display-5">Fixtures</h1>
 </div>
 
-<form asp-controller="Fixture" asp-action="Index">
+<form asp-controller="Fixture" asp-action="Filter">
     <div class="row mb-3">
         <div class="col-3">
             <label for="team" class="col-form-label">Team</label>
@@ -24,7 +24,7 @@
         </div>
         <div class="col-3">
             <label for="phase" class="col-form-label">Phase</label>
-            <select class="form-select" asp-for="@Model.phase_id" asp-items="@Model.phases_selectlist" id="phase">
+            <select class="form-select" asp-for="@Model.phase_id" asp-items="@Model.phases_selectlist" onchange="() => submit" id="phase">
             </select>
         </div>
         @*Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />*@
@@ -87,14 +87,37 @@
             <tr>
                 @*<td>@item.id</td>*@
                 <td>@item.Event</td>
-                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_h">@item.team_h_name</a> (@item.team_a_difficulty)</td>
+                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_h">@item.team_h_name</a> (@item.team_h_difficulty)</td>
                 <td>@item.team_h_score - @item.team_a_score</td>
-                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_a">@item.team_a_name</a> (@item.team_h_difficulty)</td>
+                <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_a">@item.team_a_name</a> (@item.team_a_difficulty)</td>
                 <td>@item.kickoff_time</td>
                 <td class="text-center">@item.predicted_winner</td>
                 <td class="text-center">@item.actual_winner</td>
                 <td><a asp-controller="Fixture" asp-action="Details" asp-route-id="@item.id">Details</a></td>
             </tr>
+            @*<tr><td class="fw-bold">Extra</td></tr>
+            <tr>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].code)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].id)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].pulse_id)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].started)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].provisional_start_time)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].minutes)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].finished)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.fixtures_list[0].finished_provisional)</td>
+            </tr>
+            <tr>
+                <td>@item.code</td>
+                <td>@item.id</td>
+                <td>@item.pulse_id</td>
+                <td>@item.started</td>
+                <td>@item.provisional_start_time</td>
+                <td>@item.minutes</td>
+                <td>@item.finished</td>
+                <td>@item.finished_provisional</td>
+            </tr>
+            <tr><td class="bg-dark" colspan="8"></td></tr>
+            *@
         }
     </tbody>
 </table>

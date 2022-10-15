@@ -5,83 +5,265 @@
 }
 
 <div class="text-center">
-    <h1 class="display-5">All Players</h1>
+    <h1 class="display-5">Players</h1>
 </div>
 
-<form asp-controller="Element" asp-action="Index">
-    <div class="row mb-3">
-        <div class="col-3">
-            <label for="element_name" class="col-form-label">Find by name:</label>
-            <input class="form-control" type="text" name="search_string" value="@ViewData["CurrentFilter"]" id="element_name"/>
+<div class="row mb-3">
+    <form asp-controller="Element" asp-action="Filter">
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="element_name" class="col-form-label">Find by name:</label>
+                <input class="form-control" type="text" name="search_string" value="@ViewData["CurrentFilter"]" id="element_name" />
+            </div>
+            <div class="col-3">
+                <label for="team" class="col-form-label">Team</label>
+                <select class="form-select" asp-for="@Model.team_id" asp-items="@Model.teams_selectlist" id="team">
+                    <option value="">All</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label for="element_type" class="col-form-label">Position</label>
+                <select class="form-select" asp-for="@Model.element_type_id" asp-items="@Model.element_types_selectlist" id="element_type">
+                    <option value="">All</option>
+                </select>
+            </div>
         </div>
-        <div class="col-3">
-            <label for="team" class="col-form-label">Team</label>
-            <select class="form-select" asp-for="@Model.team_id" asp-items="@Model.teams_selectlist" id="team">
-                <option value="">All</option>
-            </select>
+        <div class="row">
+            <div>
+                <input type="submit" value="Filter" />
+            </div>
         </div>
-        <div class="col-3">
-            <label for="element_type" class="col-form-label">Position</label>
-            <select class="form-select" asp-for="@Model.element_type_id" asp-items="@Model.element_types_selectlist" id="element_type">
-                <option value="">All</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-auto">
-            <input type="submit" value="Filter" />
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <table class="table table-hover table-striped-columns">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].id)</th>
+                <th data-bs-trigger="hover focus"
+                    data-bs-toggle="popover"
+                    data-bs-placement="top"
+                    data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].element_type)"
+                    class="text-center">
+                    @Html.DisplayNameFor(model => model.elements_list[0].element_type).Substring(0, 1)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].first_name_and_web_name)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].team_name)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].goals_scored)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].assists)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].clean_sheets)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].saves)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].goals_conceded)</th>
+                <th data-bs-trigger="hover focus"
+                    data-bs-toggle="popover"
+                    data-bs-placement="top"
+                    data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].bps)"
+                    class="text-center">
+                    BPS
+                </th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].influence)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].creativity)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].threat)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].ict_index)</th>
+                <th>@Html.DisplayNameFor(model => model.elements_list[0].total_points)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.elements_list)
+            {
+                <tr>
+                        <td>@item.id</td>
+                        <td>@item.element_type_short_name</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.id">
+                                @item.first_name_and_web_name
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-controller="Team" asp-action="Details" asp-route-id="@item.team">
+                                @item.team_name
+                            </a>
+                        </td>
+                        <td>@item.goals_scored</td>
+                        <td>@item.assists</td>
+                        <td>@item.clean_sheets</td>
+                        <td>@item.saves</td>
+                        <td>@item.goals_conceded</td>
+                        <td>@item.bps</td>
+                        <td>@item.influence</td>
+                        <td>@item.creativity</td>
+                        <td>@item.threat</td>
+                        <td>@item.ict_index</td>
+                        <td>@item.total_points</td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+
+@*<table class="table table-hover table-striped-columns">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].id)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].element_type)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].first_name_and_web_name)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].team_name)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].goals_scored)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].assists)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].clean_sheets)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].saves)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].goals_conceded)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].bps)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].influence)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].creativity)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].threat)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].ict_index)</th>
-            <th>@Html.DisplayNameFor(model => model.elements_list[0].total_points)</th>
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.elements_list)
         {
             <tr>
-                <td>@item.id</td>
-                <td>@item.element_type_short_name</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.id">
-                        @item.first_name_and_web_name
-                    </a>
-                </td>
-                <td>
-                    <a asp-controller="Team" asp-action="Details" asp-route-id="@item.team">
-                        @item.team_name
-                    </a>
-                </td>
-                <td>@item.goals_scored</td>
-                <td>@item.assists</td>
-                <td>@item.clean_sheets</td>
-                <td>@item.saves</td>
-                <td>@item.goals_conceded</td>
-                <td>@item.bps</td>
-                <td>@item.influence</td>
-                <td>@item.creativity</td>
-                <td>@item.threat</td>
-                <td>@item.ict_index</td>
-                <td>@item.total_points</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].chance_of_playing_next_round)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].chance_of_playing_this_round)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].code)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].cost_change_event)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].cost_change_event_fall)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].cost_change_start)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].cost_change_start_fall)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].dreamteam_count)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].element_type)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].ep_next)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].ep_this)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].event_points)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].first_name)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].form)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].id)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].in_dreamteam)</td>
+            </tr>
+            <tr>
+                <td class="text-center">@item.chance_of_playing_next_round</td>
+                <td class="text-center">@item.chance_of_playing_this_round</td>
+                <td class="text-center">@item.code</td>
+                <td class="text-center">@item.cost_change_event</td>
+                <td class="text-center">@item.cost_change_event_fall</td>
+                <td class="text-center">@item.cost_change_start</td>
+                <td class="text-center">@item.cost_change_start_fall</td>
+                <td class="text-center">@item.dreamteam_count</td>
+                <td class="text-center">@item.element_type</td>
+                <td class="text-center">@item.ep_next</td>
+                <td class="text-center">@item.ep_this</td>
+                <td class="text-center">@item.event_points</td>
+                <td class="text-center">@item.first_name</td>
+                <td class="text-center">@item.form</td>
+                <td class="text-center">@item.id</td>
+                <td class="text-center">@item.in_dreamteam</td>
+            </tr>
+            <tr>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].news)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].news_added)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].now_cost)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].photo)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].points_per_game)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].second_name)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].selected_by_percent)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].special)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].squad_number)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].status)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].team)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].team_code)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].total_points)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].transfers_in)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].transfers_in_event)</td>
+            </tr>
+            <tr>
+                <td class="text-center">@item.news</td>
+                <td class="text-center">@item.news_added</td>
+                <td class="text-center">@item.now_cost</td>
+                <td class="text-center">@item.photo</td>
+                <td class="text-center">@item.points_per_game</td>
+                <td class="text-center">@item.second_name</td>
+                <td class="text-center">@item.selected_by_percent</td>
+                <td class="text-center">@item.special</td>
+                <td class="text-center">@item.squad_number</td>
+                <td class="text-center">@item.status</td>
+                <td class="text-center">@item.team</td>
+                <td class="text-center">@item.team_code</td>
+                <td class="text-center">@item.total_points</td>
+                <td class="text-center">@item.transfers_in</td>
+                <td class="text-center">@item.transfers_in_event</td>
+            </tr>
+            <tr>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].transfers_out)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].transfers_out_event)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].value_form)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].value_season)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].web_name)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].minutes)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].goals_scored)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].assists)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].clean_sheets)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].goals_conceded)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].own_goals)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].penalties_saved)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].penalties_missed)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].yellow_cards)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].red_cards)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].saves)</td>
+            </tr>
+            <tr>
+                <td class="text-center">@item.transfers_out</td>
+                <td class="text-center">@item.transfers_out_event</td>
+                <td class="text-center">@item.value_form</td>
+                <td class="text-center">@item.value_season</td>
+                <td class="text-center">@item.web_name</td>
+                <td class="text-center">@item.minutes</td>
+                <td class="text-center">@item.goals_scored</td>
+                <td class="text-center">@item.assists</td>
+                <td class="text-center">@item.clean_sheets</td>
+                <td class="text-center">@item.goals_conceded</td>
+                <td class="text-center">@item.own_goals</td>
+                <td class="text-center">@item.penalties_saved</td>
+                <td class="text-center">@item.penalties_missed</td>
+                <td class="text-center">@item.yellow_cards</td>
+                <td class="text-center">@item.red_cards</td>
+                <td class="text-center">@item.saves</td>
+            </tr>
+            <tr>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].bonus)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].bps)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].influence)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].creativity)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].threat)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].ict_index)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].influence_rank)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].influence_rank_type)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].creativity_rank)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].creativity_rank_type)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].threat_rank)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].threat_rank_type)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].ict_index_rank)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].ict_index_rank_type)</td>
+            </tr>
+            <tr>
+                <td class="text-center">@item.bonus</td>
+                <td class="text-center">@item.bps</td>
+                <td class="text-center">@item.influence</td>
+                <td class="text-center">@item.creativity</td>
+                <td class="text-center">@item.threat</td>
+                <td class="text-center">@item.ict_index</td>
+                <td class="text-center">@item.influence_rank</td>
+                <td class="text-center">@item.influence_rank_type</td>
+                <td class="text-center">@item.creativity_rank</td>
+                <td class="text-center">@item.creativity_rank_type</td>
+                <td class="text-center">@item.threat_rank</td>
+                <td class="text-center">@item.threat_rank_type</td>
+                <td class="text-center">@item.ict_index_rank</td>
+                <td class="text-center">@item.ict_index_rank_type</td>
+            </tr>
+            <tr>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].corners_and_indirect_freekicks_order)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].corners_and_indirect_freekicks_text)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].direct_freekicks_order)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].direct_freekicks_text)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].penalties_order)</td>
+                <td class="text-center fw-bold">@Html.DisplayNameFor(model => model.elements_list[0].penalties_text)</td>
+            </tr>
+            <tr>
+                <td class="text-center">@item.corners_and_indirect_freekicks_order</td>
+                <td class="text-center">@item.corners_and_indirect_freekicks_text</td>
+                <td class="text-center">@item.direct_freekicks_order</td>
+                <td class="text-center">@item.direct_freekicks_text</td>
+                <td class="text-center">@item.penalties_order</td>
+                <td class="text-center">@item.penalties_text</td>
             </tr>
         }
     </tbody>
-</table>
+</table>*@

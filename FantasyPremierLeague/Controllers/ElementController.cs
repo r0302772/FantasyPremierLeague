@@ -49,9 +49,50 @@ namespace FantasyPremierLeague.Controllers
         }
         #endregion
 
-        public async Task<IActionResult> Index(string team_id,
-                                               string element_type_id,
-                                               string search_string)
+        public async Task<IActionResult> Index()
+        {
+            var data = GetBootstrapStatic().Result;
+
+            var teams_list = data.teams.ToList();
+            var element_types_list = data.element_types.ToList();
+            var elements_list = new List<Element>();
+
+            #region SelectLists
+            List<SelectListItem> teams_selectlist = teams_list.ConvertAll(x =>
+            {
+                return new SelectListItem()
+                {
+                    Text = x.name,
+                    Value = x.id.ToString(),
+                    Selected = false
+                };
+            });
+
+            List<SelectListItem> element_types_selectlist = element_types_list.ConvertAll(x =>
+            {
+                return new SelectListItem()
+                {
+                    Text = x.singular_name,
+                    Value = x.id.ToString(),
+                    Selected = false
+                };
+            });
+            #endregion
+
+            ElementListViewModel viewModel = new ElementListViewModel()
+            {
+                elements_list = elements_list,
+                teams_selectlist = teams_selectlist,
+                element_types_selectlist = element_types_selectlist
+            };
+
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Filter(string team_id,
+                                       string element_type_id,
+                                       string search_string)
         {
             ViewData["CurrentFilter"] = search_string;
 
@@ -121,7 +162,7 @@ namespace FantasyPremierLeague.Controllers
             };
 
 
-            return View(viewModel);
+            return View("Index",viewModel);
         }
 
         public async Task<IActionResult> Details(int? id)

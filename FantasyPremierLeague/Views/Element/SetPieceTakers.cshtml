@@ -48,6 +48,13 @@
                 class="text-center">
                 @Html.DisplayNameFor(model => model.elements_list[0].element_type).Substring(0, 1)
             </th>
+            <th data-bs-trigger="hover focus"
+                data-bs-toggle="popover"
+                data-bs-placement="top"
+                data-bs-content="@Html.DisplayNameFor(model => model.elements_list[0].now_cost)"
+                class="text-center">
+                C
+            </th>
             <th>Name</th>
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
@@ -89,6 +96,7 @@
             <tr>
                 <td>@x.id</td>
                 <td>@x.element_type</td>
+                <td>@x.now_cost</td>
                 <td><a asp-action="Details" asp-route-id="@x.id">@x.first_name @x.web_name</a></td>
                 <td class="text-center">@x.goals_scored</td>
                 <td class="text-center">@x.assists</td>

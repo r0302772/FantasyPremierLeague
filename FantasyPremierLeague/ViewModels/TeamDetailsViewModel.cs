@@ -49,11 +49,11 @@ namespace FantasyPremierLeague.ViewModels
 
         //extra props
         [Display(Name = "Goals For")]
-        public int goals_for { get; set; }
+        public int? goals_for { get; set; }
         [Display(Name = "Goals Against")]
-        public int goals_against { get; set; }
+        public int? goals_against { get; set; }
         [Display(Name = "Goal Difference")]
-        public int goal_difference { get; set; }
+        public int? goal_difference { get; set; }
         #endregion
 
         //public Team team { get; set; }

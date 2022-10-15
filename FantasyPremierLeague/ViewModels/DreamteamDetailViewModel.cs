@@ -7,5 +7,7 @@ namespace FantasyPremierLeague.ViewModels
     {
         public List<Dreamteam> dreamteam { get; set; }
         public List<Element> dreamteam_prediction { get; set; }
+
+        public List<Fixture> fixtures_list { get; set; }
     }
 }

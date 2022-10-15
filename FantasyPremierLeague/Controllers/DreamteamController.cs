@@ -57,6 +57,22 @@ namespace FantasyPremierLeague.Controllers
             return event_live_data;
         }
 
+        public async Task<List<Fixture>> GetFixtures()
+        {
+            List<Fixture> fixtures_list;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/fixtures/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    fixtures_list = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
+                }
+            }
+
+            return fixtures_list;
+
+        }
+
         #endregion
 
         #region Methods
@@ -90,6 +106,8 @@ namespace FantasyPremierLeague.Controllers
         {
             var data = GetBootstrapStatic().Result;
 
+            var fixtures_list = GetFixtures().Result;
+
             var dreamteam_data = GetDreamteamByEventId(id).Result;
 
             var dreamteam = dreamteam_data.team.ToList();
@@ -109,6 +127,7 @@ namespace FantasyPremierLeague.Controllers
 
             var event_live_data = GetEventLiveDataByEventId(id).Result;
 
+            var dream_fixuters = fixtures_list.Where(x => (x.team_h_difficulty < 3 && x.team_a_difficulty > 3) || (x.team_a_difficulty < 3 && x.team_h_difficulty > 3)).ToList();
             var dreamteam_prediction = event_live_data.elements.OrderByDescending(x => double.Parse(x.stats.ict_index)).Take(11).ToList();
 
             foreach (var item in dreamteam_prediction)
@@ -120,7 +139,8 @@ namespace FantasyPremierLeague.Controllers
             DreamteamDetailViewModel viewModel = new DreamteamDetailViewModel()
             {
                 dreamteam = dreamteam,
-                dreamteam_prediction = dreamteam_prediction
+                dreamteam_prediction = dreamteam_prediction,
+                fixtures_list = dream_fixuters,
             };
 
             return View(viewModel);

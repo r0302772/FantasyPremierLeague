@@ -41,7 +41,7 @@ namespace FantasyPremierLeague.Models
         //Endpoint path: leagues-classic/{league_id}/standings
 
         public New_Entry new_entries { get; set; }
-        public DateTime last_updated_data { get; set; }
+        public DateTime? last_updated_data { get; set; }
         public League league { get; set; }
         public Standings standings { get; set; }
 
