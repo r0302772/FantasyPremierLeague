@@ -5,10 +5,10 @@ namespace FantasyPremierLeague.DataAcces.Repository
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
+        Task<TEntity> Get(string endpoint);
         //IQueryable<TEntity> GetAll();
 
         //Task<TEntity> GetById(int id);
-        //Task<TEntity> Get(string uri);
 
         //void Create(TEntity entity);
         //void Update(TEntity entity);

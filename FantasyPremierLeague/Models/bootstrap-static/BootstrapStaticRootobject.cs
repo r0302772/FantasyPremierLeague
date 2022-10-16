@@ -14,6 +14,7 @@ namespace FantasyPremierLeague.Models.bootstrap_static
     //Endpoint path: bootstrap-static/
     public class BootstrapStaticRootobject
     {
+        public string endpoint { get { return "bootstrap-static/"; } }
         //Basic information of every Gameweek
         public List<Event> events { get; set; }
         //The game settings and rules.

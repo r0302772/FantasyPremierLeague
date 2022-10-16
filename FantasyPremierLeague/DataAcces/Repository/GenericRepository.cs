@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -10,9 +11,25 @@ namespace FantasyPremierLeague.DataAcces.Repository
     {
         private readonly HttpClient _httpClient;
 
-        public GenericRepository(HttpClient httpClient)
+        public GenericRepository(HttpClient httpClient, string baseAdress)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri("https://fantasy.premierleague.com/api/");
+        }
+
+        public async Task<TEntity> Get(string endpoint)
+        {
+            TEntity entity;
+            using (_httpClient)
+            {
+                using (var response = await _httpClient.GetAsync(endpoint))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    entity = JsonConvert.DeserializeObject<TEntity>(apiResponse);
+                }
+            }
+
+            return entity;
         }
 
         //private readonly HelloCoreContext _context;

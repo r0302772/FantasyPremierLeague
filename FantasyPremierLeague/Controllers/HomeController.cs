@@ -18,33 +18,28 @@ namespace FantasyPremierLeague.Controllers
 {
     public class HomeController : Controller
     {
-        HttpClient client = new HttpClient();
-        string baseAdress = "https://fantasy.premierleague.com/api/";
-
-        EventStatusRootobject eventStatusRootobject;
         //private readonly IUnitOfWork _uow;
-        //public HomeController(IUnitOfWork uow)
-        //{
-        //    _uow = uow;
-        //}
-
-        //public async Task<ActionResult<BootstrapStaticRootobject>> Index()
-        //{
-        //    return await _uow.BootstrapStaticRepository.Get("https://fantasy.premierleague.com/api/bootstrap-static");
-        //}
+        public HomeController(/*IUnitOfWork uow*/)
+        {
+            //_uow = uow;
+        }
 
         public async Task<IActionResult> Index()
         {
-            var data = await ApiOperations.GetBootstrapStatic(client, "bootstrap-static/");
-            //eventStatusRootobject = JsonConvert.DeserializeObject<EventStatusRootobject>(await client.GetStringAsync(baseAdress + "event-status/"));
+            //var bootstrap_static = await ApiOperations.GetBootstrapStatic("bootstrap-static/");
+            var event_status = await ApiOperations.GetEventStatus();
+            
+            //unitOfWork
+            //var bootstrap = await _uow.BootstrapStaticRepository.Get("bootstrap-static/");
+            //var event_status = await _uow.BootstrapStaticRepository.Get("event-status/");
 
-            //HomeViewModel viewModel = new HomeViewModel()
-            //{
-            //    eventStatusRootobject = eventStatusRootobject
-            //};
+            HomeViewModel viewModel = new HomeViewModel()
+            {
+                eventStatusRootobject = event_status
+            };
 
             //return View(JsonConvert.DeserializeObject<EventStatusRootobject>(await client.GetStringAsync(baseAdress + eventStatusRootobject.endpoint)));
-            return View(/*viewModel*/);
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

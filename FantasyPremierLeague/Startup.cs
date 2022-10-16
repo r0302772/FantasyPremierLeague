@@ -1,17 +1,12 @@
-using FantasyPremierLeague.Clients;
 using FantasyPremierLeague.DataAcces.Repository;
 using FantasyPremierLeague.DataAcces.UnitOfWork;
 using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.event_status;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FantasyPremierLeague
 {
@@ -32,6 +27,7 @@ namespace FantasyPremierLeague
             services.AddHttpClient();
 
             //services.AddScoped<IGenericRepository<BootstrapStaticRootobject>, GenericRepository<BootstrapStaticRootobject>>();
+            //services.AddScoped<IGenericRepository<EventStatusRootobject>, GenericRepository<EventStatusRootobject>>();
             //services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         }

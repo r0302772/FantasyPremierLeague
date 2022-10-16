@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FantasyPremierLeague.Models.leagues_classic_standings
 {
-    //Endpoint path: leagues-classic/{league_id}/standings
+    //Endpoint path: leagues-classic/{league_id}/standings/
     public class LeaguesClassicStandingsRootobject
     {
         public New_Entry new_entries { get; set; }

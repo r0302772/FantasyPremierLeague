@@ -8,6 +8,6 @@ namespace FantasyPremierLeague.ViewModels
 {
     public class HomeViewModel
     {
-        //public EventStatusRootobject eventStatusRootobject { get; set; }
+        public EventStatusRootobject eventStatusRootobject { get; set; }
     }
 }

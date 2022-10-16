@@ -1,4 +1,5 @@
-﻿using FantasyPremierLeague.Models;
+﻿using FantasyPremierLeague.DataAcces;
+using FantasyPremierLeague.Models;
 using FantasyPremierLeague.Models.bootstrap_static;
 using FantasyPremierLeague.Models.dream_team;
 using FantasyPremierLeague.Models.event_live;
@@ -15,69 +16,10 @@ namespace FantasyPremierLeague.Controllers
 {
     public class DreamteamController : Controller
     {
-        #region API GetRequests
-        public async Task<BootstrapStaticRootobject> GetBootstrapStatic()
+        public DreamteamController()
         {
-            BootstrapStaticRootobject bootstrap_static;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<BootstrapStaticRootobject>(apiResponse);
-                }
-            }
-
-            return bootstrap_static;
-        }
-
-        public async Task<DreamTeamRootobject> GetDreamteamByEventId(int? event_id)
-        {
-            DreamTeamRootobject dreamteam;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/dream-team/{event_id}/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    dreamteam = JsonConvert.DeserializeObject<DreamTeamRootobject>(apiResponse);
-                }
-            }
-
-            return dreamteam;
-        }
-
-        public async Task<EventLiveRootobject> GetEventLiveDataByEventId(int? event_id)
-        {
-            EventLiveRootobject event_live_data;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/event/{event_id}/live/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    event_live_data = JsonConvert.DeserializeObject<EventLiveRootobject>(apiResponse);
-                }
-            }
-
-            return event_live_data;
-        }
-
-        public async Task<List<Fixture>> GetFixtures()
-        {
-            List<Fixture> fixtures_list;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/fixtures/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    fixtures_list = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
-                }
-            }
-
-            return fixtures_list;
 
         }
-
-        #endregion
 
         #region Methods
 
@@ -85,7 +27,7 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var elements_list = data.elements.ToList();
 
@@ -112,11 +54,11 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
-            var fixtures_list = GetFixtures().Result;
+            var fixtures_list = await ApiOperations.GetFixtures(false);
 
-            var dreamteam_data = GetDreamteamByEventId(id).Result;
+            var dreamteam_data = await ApiOperations.GetDreamTeam(id);
 
             var dreamteam = dreamteam_data.team.ToList();
 
@@ -133,7 +75,7 @@ namespace FantasyPremierLeague.Controllers
                 item.team_name = element_team.name;
             }
 
-            var event_live_data = GetEventLiveDataByEventId(id).Result;
+            var event_live_data = await ApiOperations.GetEventLive(id);
 
             var dream_fixuters = fixtures_list.Where(x => (x.team_h_difficulty < 3 && x.team_a_difficulty > 3) || (x.team_a_difficulty < 3 && x.team_h_difficulty > 3)).ToList();
             var dreamteam_prediction = event_live_data.elements.OrderByDescending(x => double.Parse(x.stats.ict_index)).Take(11).ToList();

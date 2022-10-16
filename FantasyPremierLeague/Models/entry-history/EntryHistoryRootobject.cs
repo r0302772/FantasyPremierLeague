@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FantasyPremierLeague.Models.entry_history
 {
-    //Endpoint path: entry/{manager_id}/history
+    //Endpoint path: entry/{manager_id}/history/
 
     public class EntryHistoryRootobject
     {

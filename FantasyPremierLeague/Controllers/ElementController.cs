@@ -18,43 +18,13 @@ namespace FantasyPremierLeague.Controllers
 {
     public class ElementController : Controller
     {
-        #region API GetRequests
-        [NonAction]
-        public async Task<BootstrapStaticRootobject> GetBootstrapStatic()
+        public ElementController()
         {
-            BootstrapStaticRootobject bootstrap_static;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<BootstrapStaticRootobject>(apiResponse);
-                }
-            }
 
-            return bootstrap_static;
         }
-
-        [NonAction]
-        public async Task<ElementSummaryRootobject> GetElementSummaryById(int? id)
-        {
-            ElementSummaryRootobject element_summary;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/element-summary/{id}/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    element_summary = JsonConvert.DeserializeObject<ElementSummaryRootobject>(apiResponse);
-                }
-            }
-
-            return element_summary;
-        }
-        #endregion
-
         public async Task<IActionResult> Index()
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var teams_list = data.teams.ToList();
             var element_types_list = data.element_types.ToList();
@@ -99,7 +69,7 @@ namespace FantasyPremierLeague.Controllers
         {
             ViewData["CurrentFilter"] = search_string;
 
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var elements_list = data.elements.OrderBy(x => x.team).ThenBy(x => x.id).ToList();
             var teams_list = data.teams.ToList();
@@ -170,9 +140,9 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
-            var element_summary = GetElementSummaryById(id).Result;
+            var element_summary = await ApiOperations.GetElementSummary(id);
             var teams_list = data.teams.ToList();
             var element = data.elements.FirstOrDefault(x => x.id == id);
             var element_team_name = data.teams.First(x => x.id == element.team).name;
@@ -225,7 +195,7 @@ namespace FantasyPremierLeague.Controllers
                                                         string element_type_id,
                                                         string set_piece_id)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var teams_list = data.teams.ToList();
             var teams_count = teams_list.Count();

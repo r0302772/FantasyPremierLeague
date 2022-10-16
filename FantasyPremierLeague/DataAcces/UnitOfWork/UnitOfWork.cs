@@ -11,10 +11,12 @@ namespace FantasyPremierLeague.DataAcces.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly HttpClient _httpClient;
+
         private IGenericRepository<BootstrapStaticRootobject> bootstrapStaticRepository;
-        public UnitOfWork(HttpClient httpClient)
+        public UnitOfWork(HttpClient httpClient, string baseAdress)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri("https://fantasy.premierleague.com/api/");
         }
 
         public IGenericRepository<BootstrapStaticRootobject> BootstrapStaticRepository
@@ -22,7 +24,7 @@ namespace FantasyPremierLeague.DataAcces.UnitOfWork
             get
             {
                 if (bootstrapStaticRepository == null)
-                    bootstrapStaticRepository = new GenericRepository<BootstrapStaticRootobject>(_httpClient);
+                    bootstrapStaticRepository = new GenericRepository<BootstrapStaticRootobject>(_httpClient, "bootstrap-static/");
 
                 return bootstrapStaticRepository;
             }
