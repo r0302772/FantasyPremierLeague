@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace FantasyPremierLeague.Data
+namespace FantasyPremierLeague.Clients
 {
-    public class APIOperations
+    public class EventStatusClient : HttpClient
     {
+
     }
 }

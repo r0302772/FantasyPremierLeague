@@ -10,6 +10,6 @@ namespace FantasyPremierLeague.Models.entry_event_picks.automatic_subs
         public int entry { get; set; }
         public int element_in { get; set; }
         public int element_out { get; set; }
-        public int _event { get; set; }
+        public int Event { get; set; }
     }
 }

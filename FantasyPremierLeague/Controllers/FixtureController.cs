@@ -52,7 +52,7 @@ namespace FantasyPremierLeague.Controllers
             var data = GetBootstrapStatic().Result;
 
             var fixtures_list = GetFixtures().Result;
-            fixtures_list = fixtures_list.Where(x => x._event == 1).ToList();
+            fixtures_list = fixtures_list.Where(x => x.Event == 1).ToList();
 
             var teams_list = data.teams.ToList();
 
@@ -215,7 +215,7 @@ namespace FantasyPremierLeague.Controllers
             if (!string.IsNullOrEmpty(event_id))
             {
                 fixtures_list = fixtures_list
-                                   .Where(x => x._event.ToString() == event_id)
+                                   .Where(x => x.Event.ToString() == event_id)
                                    .ToList();
             }
 

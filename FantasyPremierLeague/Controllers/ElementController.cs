@@ -1,4 +1,4 @@
-﻿using FantasyPremierLeague.Data;
+﻿using FantasyPremierLeague.DataAcces;
 using FantasyPremierLeague.Models;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;

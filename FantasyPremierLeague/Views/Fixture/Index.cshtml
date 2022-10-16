@@ -50,7 +50,7 @@
             <th data-bs-trigger="hover focus"
                 data-bs-toggle="popover"
                 data-bs-placement="top"
-                data-bs-content="@Html.DisplayNameFor(model => model.fixtures_list[0]._event)"
+                data-bs-content="@Html.DisplayNameFor(model => model.fixtures_list[0].Event)"
                 class="text-center">
                 GW
             </th>
@@ -86,7 +86,7 @@
         {
             <tr>
                 @*<td>@item.id</td>*@
-                <td>@item._event</td>
+                <td>@item.Event</td>
                 <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_h">@item.team_h_name</a> (@item.team_h_difficulty)</td>
                 <td>@item.team_h_score - @item.team_a_score</td>
                 <td><a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_a">@item.team_a_name</a> (@item.team_a_difficulty)</td>

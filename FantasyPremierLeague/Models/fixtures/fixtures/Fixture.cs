@@ -9,7 +9,7 @@ namespace FantasyPremierLeague.Models.fixtures.fixtures
     public class Fixture
     {
         public int code { get; set; }
-        public int _event { get; set; }
+        public int? Event { get; set; }
         public bool finished { get; set; }
         public bool finished_provisional { get; set; }
         public int id { get; set; }

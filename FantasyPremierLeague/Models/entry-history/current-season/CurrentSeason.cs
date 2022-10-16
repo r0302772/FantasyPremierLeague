@@ -7,7 +7,7 @@ namespace FantasyPremierLeague.Models.entry_history.current_season
 {
     public class CurrentSeason
     {
-        public int _event { get; set; }
+        public int Event { get; set; }
         public int points { get; set; }
         public int total_points { get; set; }
         public int rank { get; set; }

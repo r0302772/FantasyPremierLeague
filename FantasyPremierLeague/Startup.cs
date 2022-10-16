@@ -1,3 +1,7 @@
+using FantasyPremierLeague.Clients;
+using FantasyPremierLeague.DataAcces.Repository;
+using FantasyPremierLeague.DataAcces.UnitOfWork;
+using FantasyPremierLeague.Models.bootstrap_static;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +30,10 @@ namespace FantasyPremierLeague
             services.AddControllersWithViews();
 
             services.AddHttpClient();
+
+            //services.AddScoped<IGenericRepository<BootstrapStaticRootobject>, GenericRepository<BootstrapStaticRootobject>>();
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

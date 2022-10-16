@@ -9,7 +9,7 @@ namespace FantasyPremierLeague.Models.event_status.statuses
     {
         public bool bonus_added { get; set; }
         public string date { get; set; }
-        public int _event { get; set; }
+        public int Event { get; set; }
         public string points { get; set; }
     }
 }

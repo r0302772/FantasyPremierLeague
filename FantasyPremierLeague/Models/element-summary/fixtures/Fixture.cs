@@ -13,7 +13,7 @@ namespace FantasyPremierLeague.Models.element_summary.fixtures
         public object team_h_score { get; set; }
         public int team_a { get; set; }
         public object team_a_score { get; set; }
-        public int? _event { get; set; }
+        public int? Event { get; set; }
         public bool finished { get; set; }
         public int minutes { get; set; }
         public bool provisional_start_time { get; set; }

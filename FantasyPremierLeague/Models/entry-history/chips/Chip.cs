@@ -9,6 +9,6 @@ namespace FantasyPremierLeague.Models.entry_history.chips
     {
         public string name { get; set; }
         public DateTime time { get; set; }
-        public int _event { get; set; }
+        public int Event { get; set; }
     }
 }
