@@ -17,6 +17,9 @@ namespace FantasyPremierLeague.Models
         public List<Team> teams { get; set; }
         //Information of all Premier League players (bootstrap-static/ endpoint)
         //A list of players’ information in that specific Gameweek (event/{event_id}/live/ endpoint)
+
+        //Not important yet
+        //public int total_players { get; set; }
         public List<Element> elements { get; set; }
         //Basic information about player’s position
         public List<Element_Type> element_types { get; set; }
@@ -45,8 +48,12 @@ namespace FantasyPremierLeague.Models
         public League league { get; set; }
         public Standings standings { get; set; }
 
+        //Endpoint path: entry/{manager_id}/event/{event_id}/picks/
 
-        //Not important yet
-        //public int total_players { get; set; }
+        public string active_chip { get; set; }
+        public List<Automatic_Subs> automatic_subs { get; set; }
+        public Entry_History entry_history { get; set; }
+        public List<Pick> picks { get; set; }
+
     }
 }

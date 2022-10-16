@@ -89,9 +89,13 @@ namespace FantasyPremierLeague.Controllers
 
             foreach (var item in events_list)
             {
-                var element = elements_list.First(x => x.id == item.top_element);
+                if (item.finished)
+                {
+                    var element = elements_list.First(x => x.id == item.top_element);
 
-                item.top_element_info.first_and_web_name = $"{element.first_name} {element.web_name}";
+                    item.top_element_info.first_and_web_name = $"{element.first_name} {element.web_name}";
+
+                }
             }
 
             DreamteamListViewModel viewModel = new DreamteamListViewModel()
