@@ -53,9 +53,5 @@ namespace FantasyPremierLeague.Models.bootstrap_static.teams
         public int? goals_against { get; set; }
         [Display(Name = "Goal Difference")]
         public int? goal_difference { get { return goals_for - goals_against; } }
-
-        //navigationproperties
-        public List<Element> Elements { get; set; }
-        public List<Fixture> Fixtures { get; set; }
     }
 }

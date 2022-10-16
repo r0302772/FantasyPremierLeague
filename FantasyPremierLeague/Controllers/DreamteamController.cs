@@ -1,4 +1,8 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.dream_team;
+using FantasyPremierLeague.Models.event_live;
+using FantasyPremierLeague.Models.fixtures.fixtures;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,45 +16,45 @@ namespace FantasyPremierLeague.Controllers
     public class DreamteamController : Controller
     {
         #region API GetRequests
-        public async Task<Rootobject> GetBootstrapStatic()
+        public async Task<BootstrapStaticRootobject> GetBootstrapStatic()
         {
-            Rootobject bootstrap_static;
+            BootstrapStaticRootobject bootstrap_static;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    bootstrap_static = JsonConvert.DeserializeObject<BootstrapStaticRootobject>(apiResponse);
                 }
             }
 
             return bootstrap_static;
         }
 
-        public async Task<Rootobject> GetDreamteamByEventId(int? event_id)
+        public async Task<DreamTeamRootobject> GetDreamteamByEventId(int? event_id)
         {
-            Rootobject dreamteam;
+            DreamTeamRootobject dreamteam;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/dream-team/{event_id}/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    dreamteam = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    dreamteam = JsonConvert.DeserializeObject<DreamTeamRootobject>(apiResponse);
                 }
             }
 
             return dreamteam;
         }
 
-        public async Task<Rootobject> GetEventLiveDataByEventId(int? event_id)
+        public async Task<EventLiveRootobject> GetEventLiveDataByEventId(int? event_id)
         {
-            Rootobject event_live_data;
+            EventLiveRootobject event_live_data;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/event/{event_id}/live/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    event_live_data = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    event_live_data = JsonConvert.DeserializeObject<EventLiveRootobject>(apiResponse);
                 }
             }
 
@@ -125,7 +129,7 @@ namespace FantasyPremierLeague.Controllers
                 var element_team = teams_list.First(x => x.id == element.team);
 
                 item.first_name_and_web_name = $"{element.first_name} {element.web_name}";
-                item.team = element.team;
+                item.team_id = element_team.id;
                 item.team_name = element_team.name;
             }
 
@@ -144,7 +148,6 @@ namespace FantasyPremierLeague.Controllers
             {
                 dreamteam = dreamteam,
                 dreamteam_prediction = dreamteam_prediction,
-                fixtures_list = dream_fixuters,
             };
 
             return View(viewModel);

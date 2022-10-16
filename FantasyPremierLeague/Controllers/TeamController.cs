@@ -1,4 +1,6 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.fixtures.fixtures;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,15 +17,15 @@ namespace FantasyPremierLeague.Controllers
     {
         #region API GetRequests
         [NonAction]
-        public async Task<Rootobject> GetBootstrapStatic()
+        public async Task<BootstrapStaticRootobject> GetBootstrapStatic()
         {
-            Rootobject bootstrap_static;
+            BootstrapStaticRootobject bootstrap_static;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    bootstrap_static = JsonConvert.DeserializeObject<BootstrapStaticRootobject>(apiResponse);
                 }
             }
 

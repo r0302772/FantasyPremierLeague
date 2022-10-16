@@ -1,4 +1,6 @@
-﻿using FantasyPremierLeague.Models.leagues_classic_standings.standings;
+﻿using FantasyPremierLeague.Models.leagues_classic_standings.leagues;
+using FantasyPremierLeague.Models.leagues_classic_standings.new_entries;
+using FantasyPremierLeague.Models.leagues_classic_standings.standings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

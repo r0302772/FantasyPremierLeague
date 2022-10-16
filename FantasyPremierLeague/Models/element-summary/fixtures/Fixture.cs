@@ -21,5 +21,9 @@ namespace FantasyPremierLeague.Models.element_summary.fixtures
         public string event_name { get; set; }
         public bool is_home { get; set; }
         public int difficulty { get; set; }
+
+        //extra props
+        public int opponent_team { get; set; }
+        public string opponent_team_name { get; set; }
     }
 }

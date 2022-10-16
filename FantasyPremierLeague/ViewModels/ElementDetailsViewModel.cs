@@ -1,4 +1,8 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.bootstrap_static.element_types;
+using FantasyPremierLeague.Models.bootstrap_static.elements;
+using FantasyPremierLeague.Models.element_summary.fixtures;
+using FantasyPremierLeague.Models.element_summary.histories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.leagues_classic_standings;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -14,15 +15,15 @@ namespace FantasyPremierLeague.Controllers
     {
         #region API GetRequests
         [NonAction]
-        public async Task<Rootobject> GetLeagueStandingsByLeagueId(int? league_id)
+        public async Task<LeaguesClassicStandingsRootobject> GetLeagueStandingsByLeagueId(int? league_id)
         {
-            Rootobject league;
+            LeaguesClassicStandingsRootobject league;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/leagues-classic/{league_id}/standings"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    league = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    league = JsonConvert.DeserializeObject<LeaguesClassicStandingsRootobject>(apiResponse);
                 }
             }
 

@@ -9,5 +9,8 @@ namespace FantasyPremierLeague.Models.bootstrap_static.events.lists_and_objects
     {
         public int id { get; set; }
         public int points { get; set; }
+
+        //extra props
+        public string first_and_web_name { get; set; }
     }
 }

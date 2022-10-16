@@ -1,4 +1,6 @@
 ﻿using FantasyPremierLeague.Models.entry_event_picks.automatic_subs;
+using FantasyPremierLeague.Models.entry_event_picks.entry_histories;
+using FantasyPremierLeague.Models.entry_event_picks.picks;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -13,8 +13,8 @@ namespace FantasyPremierLeague.Data
         {
         }
 
-        public DbSet<Element> Elements { get; set; }
-        public DbSet<Element_Type> Element_Types { get; set; }
-        public DbSet<Team> Teams { get; set; }
+        //public DbSet<Element> Elements { get; set; }
+        //public DbSet<Element_Type> Element_Types { get; set; }
+        //public DbSet<Team> Teams { get; set; }
     }
 }

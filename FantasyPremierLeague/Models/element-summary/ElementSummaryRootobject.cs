@@ -1,4 +1,6 @@
-﻿using FantasyPremierLeague.Models.element_summary.histories_past;
+﻿using FantasyPremierLeague.Models.element_summary.fixtures;
+using FantasyPremierLeague.Models.element_summary.histories;
+using FantasyPremierLeague.Models.element_summary.histories_past;
 using System;
 using System.Collections.Generic;
 using System.Linq;

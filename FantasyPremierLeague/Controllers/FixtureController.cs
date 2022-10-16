@@ -1,4 +1,6 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.fixtures.fixtures;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,15 +17,15 @@ namespace FantasyPremierLeague.Controllers
     {
         #region API GetRequests
         [NonAction]
-        public async Task<Rootobject> GetBootstrapStatic()
+        public async Task<BootstrapStaticRootobject> GetBootstrapStatic()
         {
-            Rootobject bootstrap_static;
+            BootstrapStaticRootobject bootstrap_static;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    bootstrap_static = JsonConvert.DeserializeObject<BootstrapStaticRootobject>(apiResponse);
                 }
             }
 
@@ -50,7 +52,7 @@ namespace FantasyPremierLeague.Controllers
             var data = GetBootstrapStatic().Result;
 
             var fixtures_list = GetFixtures().Result;
-            fixtures_list = fixtures_list.Where(x => x.Event == 1).ToList();
+            fixtures_list = fixtures_list.Where(x => x._event == 1).ToList();
 
             var teams_list = data.teams.ToList();
 
@@ -213,7 +215,7 @@ namespace FantasyPremierLeague.Controllers
             if (!string.IsNullOrEmpty(event_id))
             {
                 fixtures_list = fixtures_list
-                                   .Where(x => x.Event.ToString() == event_id)
+                                   .Where(x => x._event.ToString() == event_id)
                                    .ToList();
             }
 

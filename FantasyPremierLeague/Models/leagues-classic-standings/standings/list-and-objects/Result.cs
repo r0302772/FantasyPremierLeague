@@ -16,5 +16,11 @@ namespace FantasyPremierLeague.Models.leagues_classic_standings.standings.list_a
         public int total { get; set; }
         public int entry { get; set; }
         public string entry_name { get; set; }
+
+        //extra props
+        public int point_difference_first_place { get; set; }
+        public int point_difference_last_place { get; set; }
+        public int point_difference_place_up { get; set; }
+        public int point_difference_place_down { get; set; }
     }
 }

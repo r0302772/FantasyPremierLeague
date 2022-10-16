@@ -1,4 +1,5 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.fixtures.fixtures;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;

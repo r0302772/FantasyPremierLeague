@@ -10,6 +10,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.element_summary;
+using FantasyPremierLeague.Models.bootstrap_static.elements;
 
 namespace FantasyPremierLeague.Controllers
 {
@@ -17,15 +20,15 @@ namespace FantasyPremierLeague.Controllers
     {
         #region API GetRequests
         [NonAction]
-        public async Task<Rootobject> GetBootstrapStatic()
+        public async Task<BootstrapStaticRootobject> GetBootstrapStatic()
         {
-            Rootobject bootstrap_static;
+            BootstrapStaticRootobject bootstrap_static;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    bootstrap_static = JsonConvert.DeserializeObject<BootstrapStaticRootobject>(apiResponse);
                 }
             }
 
@@ -33,15 +36,15 @@ namespace FantasyPremierLeague.Controllers
         }
 
         [NonAction]
-        public async Task<Rootobject> GetElementSummaryById(int? id)
+        public async Task<ElementSummaryRootobject> GetElementSummaryById(int? id)
         {
-            Rootobject element_summary;
+            ElementSummaryRootobject element_summary;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/element-summary/{id}/"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    element_summary = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
+                    element_summary = JsonConvert.DeserializeObject<ElementSummaryRootobject>(apiResponse);
                 }
             }
 
@@ -194,7 +197,7 @@ namespace FantasyPremierLeague.Controllers
             foreach (var item in element_fixtures)
             {
                 var opponent = teams_list.First(x => x.id == item.team_h);
-                item.opponent_team = opponent.id;
+                //item.opponent_team = opponent.id;
                 item.opponent_team_name = opponent.name;
 
                 if (item.is_home)
