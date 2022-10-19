@@ -5,13 +5,11 @@ using FantasyPremierLeague.Models.entry_event_picks;
 using FantasyPremierLeague.Models.entry_history;
 using FantasyPremierLeague.Models.event_live;
 using FantasyPremierLeague.Models.event_status;
-using FantasyPremierLeague.Models.fixtures;
 using FantasyPremierLeague.Models.fixtures.fixtures;
 using FantasyPremierLeague.Models.leagues_classic_standings;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -135,14 +133,14 @@ namespace FantasyPremierLeague.DataAcces
             return fixtures;
         }
 
-        public static async Task<FixturesRootobject> GetFixturesOfEvent(int? event_id)
+        public static async Task<List<Fixture>> GetFixturesOfEvent(int? event_id)
         {
-            FixturesRootobject fixtures;
+            List<Fixture> fixtures;
 
             using (var response = await _httpClient.GetAsync($"fixtures/?event={event_id}"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                fixtures = JsonConvert.DeserializeObject<FixturesRootobject>(apiResponse);
+                fixtures = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
             }
 
             return fixtures;

@@ -135,7 +135,7 @@ namespace FantasyPremierLeague.Controllers
             };
 
 
-            return View("Index",viewModel);
+            return View("Index", viewModel);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -185,7 +185,8 @@ namespace FantasyPremierLeague.Controllers
                 element_type = element_type,
                 element_history = element_history,
                 element_fixtures = element_fixtures,
-                value_difference = value_difference
+                value_difference = value_difference,
+                total_minutes = element_history.Count * 90
             };
 
             return View(viewModel);

@@ -24,7 +24,7 @@ namespace FantasyPremierLeague.Controllers
         #region Methods
 
         #endregion
-
+        [Route("/team-of-the-week/")]
         public async Task<IActionResult> Index()
         {
             var data = await ApiOperations.GetBootstrapStatic();
@@ -52,6 +52,7 @@ namespace FantasyPremierLeague.Controllers
             return View(viewModel);
         }
 
+        [Route("/team-of-the-week/{id?}")]
         public async Task<IActionResult> Details(int? id)
         {
             var data = await ApiOperations.GetBootstrapStatic();
@@ -70,9 +71,9 @@ namespace FantasyPremierLeague.Controllers
                 var element = elements_list.First(x => x.id == item.element);
                 var element_team = teams_list.First(x => x.id == element.team);
 
-                item.first_name_and_web_name = $"{element.first_name} {element.web_name}";
-                item.team_id = element_team.id;
-                item.team_name = element_team.name;
+                //item.first_name_and_web_name = $"{element.first_name} {element.web_name}";
+                //item.team_id = element_team.id;
+                //item.team_name = element_team.name;
             }
 
             var event_live_data = await ApiOperations.GetEventLive(id);

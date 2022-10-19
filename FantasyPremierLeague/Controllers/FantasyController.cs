@@ -48,6 +48,35 @@ namespace FantasyPremierLeague.Controllers
                 }
             }
 
+            foreach (var item in results_standings_list)
+            {
+                var entry_histories = await ApiOperations.GetEntryHistory(item.entry);//9 api calls
+                for (int i = 1; i <= entry_histories.current.Count; i++)
+                {
+                    var entry_event_picks = await ApiOperations.GetEntryEventPicks(item.entry, i);//11 api calls
+                    foreach (var auto_sub in entry_event_picks.automatic_subs)
+                    {
+                        if (auto_sub != null)
+                        {
+                            var element_summary = await ApiOperations.GetElementSummary(auto_sub.element_in);
+                            var histories = element_summary.history;
+                            foreach (var history in histories)
+                            {
+                                if (history.round == i)
+                                {
+                                    item.points_from_auto_subs += history.total_points;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                foreach (var history in entry_histories.current)
+                {
+                    item.total_points_on_bench += history.points_on_bench;
+                }
+            }
+
             LeagueDetailsViewModel viewModel = new LeagueDetailsViewModel()
             {
                 league = league,

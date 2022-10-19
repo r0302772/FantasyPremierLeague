@@ -1,10 +1,7 @@
 ﻿using FantasyPremierLeague.Models.entry_history.chips;
 using FantasyPremierLeague.Models.entry_history.current_season;
 using FantasyPremierLeague.Models.entry_history.past_seasons;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FantasyPremierLeague.Models.entry_history
 {

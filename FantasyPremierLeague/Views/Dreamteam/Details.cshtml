@@ -12,9 +12,9 @@
     <thead>
         <tr>
             <th></th>
-            <th>@Html.DisplayNameFor(model => model.dreamteam[0].first_name_and_web_name)</th>
+            @*<th>@Html.DisplayNameFor(model => model.dreamteam[0].first_name_and_web_name)</th>*@
             <th>@Html.DisplayNameFor(model => model.dreamteam[0].points)</th>
-            <th>@Html.DisplayNameFor(model => model.dreamteam[0].team_name)</th>
+            @*<th>@Html.DisplayNameFor(model => model.dreamteam[0].team_name)</th>*@
         </tr>
     </thead>
     <tbody>
@@ -24,15 +24,15 @@
                 <th scope="col">@item.position</th>
                 <td>
                     <a asp-controller="Element" asp-action="Details" asp-route-id="@item.element">
-                        @item.first_name_and_web_name
+                        @*@item.first_name_and_web_name*@
                     </a>
                 </td>
                 @*<td><a asp-controller="Element" asp-action="Details" asp-route-id="@Model.Players[i].id">@Model.Players[i].web_name</a></td>*@
                 <td>@item.points</td>
                 <td>
-                    <a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_id">
+                    @*<a asp-controller="Team" asp-action="Details" asp-route-id="@item.team_id">
                         @item.team_name
-                    </a>
+                    </a>*@
                 </td>
             </tr>
         }
