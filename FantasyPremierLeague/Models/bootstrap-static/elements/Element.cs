@@ -17,12 +17,11 @@ namespace FantasyPremierLeague.Models.bootstrap_static.elements
         [Display(Name = "Code")]
         public int code { get; set; }
         [Display(Name = "Price Rise Gameweek")]
-        public int cost_change_event { get; set; }
+        public float cost_change_event { get; set; }
         [Display(Name = "Price Fall Gameweek")]
         public int cost_change_event_fall { get; set; }
         [Display(Name = "Price Rise Start")]
-        public int cost_change_start { get; set; }
-        [Display(Name = "Price Fall Start")]
+        public float cost_change_start { get; set; }
         public int cost_change_start_fall { get; set; }
         [Display(Name = "Dreamteam Count")]
         public int dreamteam_count { get; set; }
@@ -47,7 +46,7 @@ namespace FantasyPremierLeague.Models.bootstrap_static.elements
         [Display(Name = "News Added")]
         public DateTime? news_added { get; set; }
         [Display(Name = "Cost")]
-        public int now_cost { get; set; }
+        public float now_cost { get; set; }
         [Display(Name = "Photo")]
         public string photo { get; set; }
         [Display(Name = "Points Per Game")]
@@ -63,7 +62,7 @@ namespace FantasyPremierLeague.Models.bootstrap_static.elements
         [Display(Name = "Status")]
         public string status { get; set; }
         [Display(Name = "Team")]
-        public int team { get; set; } //refers to the id in the Team class
+        public int? team { get; set; } //refers to the id in the Team class
         [Display(Name = "Team Code")]
         public int team_code { get; set; }
         [Display(Name = "Total Points")]

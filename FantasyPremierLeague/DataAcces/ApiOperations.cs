@@ -7,6 +7,7 @@ using FantasyPremierLeague.Models.event_live;
 using FantasyPremierLeague.Models.event_status;
 using FantasyPremierLeague.Models.fixtures.fixtures;
 using FantasyPremierLeague.Models.leagues_classic_standings;
+using FantasyPremierLeague.Models.my_team;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -158,5 +159,17 @@ namespace FantasyPremierLeague.DataAcces
 
             return leagues_classic_standings;
         }
+
+        //public static async Task<MyTeamRootobject> GetMyTeam(int? manager_id) {
+        //    MyTeamRootobject my_team;
+
+        //    using (var response = await _httpClient.GetAsync($"my-team/{manager_id}/"))
+        //    {
+        //        string apiResponse = await response.Content.ReadAsStringAsync();
+        //        my_team = JsonConvert.DeserializeObject<MyTeamRootobject>(apiResponse);
+        //    }
+
+        //    return my_team;
+        //}
     }
 }
