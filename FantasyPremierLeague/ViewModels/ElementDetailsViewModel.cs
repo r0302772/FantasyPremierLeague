@@ -1,8 +1,8 @@
-﻿using FantasyPremierLeague.Models;
-using System;
+﻿using FantasyPremierLeague.Models.bootstrap_static.element_types;
+using FantasyPremierLeague.Models.bootstrap_static.elements;
+using FantasyPremierLeague.Models.element_summary.fixtures;
+using FantasyPremierLeague.Models.element_summary.histories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FantasyPremierLeague.ViewModels
 {
@@ -15,5 +15,6 @@ namespace FantasyPremierLeague.ViewModels
 
         public double value_difference { get; set; }
         public string element_team_name { get; set; }
+        public int total_minutes { get; set; }
     }
 }

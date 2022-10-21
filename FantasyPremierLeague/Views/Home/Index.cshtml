@@ -1,149 +1,454 @@
-﻿@{
+﻿@model FantasyPremierLeague.ViewModels.HomeViewModel
+@{
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-5">Fantasy Premier League</h1>
-    <h1 class="display-5">Bonus Point System</h1>
+<div class="row p-3">
+    <h2 class="text-center display-5">@Model.event_info.Keys.ElementAt(0).name</h2>
 </div>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Action</th>
-            <th scope="col">BPS</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Playing 1 to 60 minutes</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Playing over 60 minutes</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>Goalkeepers and defenders scoring a goal</td>
-            <td>12</td>
-        </tr>
-        <tr>
-            <td>Midfielders scoring a goal</td>
-            <td>18</td>
-        </tr>
-        <tr>
-            <td>Forwards scoring a goal</td>
-            <td>24</td>
-        </tr>
-        <tr>
-            <td>Assists</td>
-            <td>9</td>
-        </tr>
-        <tr>
-            <td>Goalkeepers and defenders keeping a clean sheet</td>
-            <td>12</td>
-        </tr>
-        <tr>
-            <td>Saving a penalty</td>
-            <td>15</td>
-        </tr>
-        <tr>
-            <td>Save</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>Successful open play cross</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Creating a big chance (a chance where the receiving player should score)</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>For every 2 clearances, blocks and interceptions (total)</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>For every 3 recoveries</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Key pass</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Successful tackle (net*)</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>Successful dribble</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Scoring the goal that wins a match</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>70 to 79% pass completion (at least 30 passes attempted)</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>80 to 89% pass completion (at least 30 passes attempted)</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>90%+ pass completion (at least 30 passes attempted)</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>Conceding a penalty</td>
-            <td>-3</td>
-        </tr>
-        <tr>
-            <td>Missing a penalty</td>
-            <td>-6</td>
-        </tr>
-        <tr>
-            <td>Yellow card</td>
-            <td>-3</td>
-        </tr>
-        <tr>
-            <td>Red card</td>
-            <td>-9</td>
-        </tr>
-        <tr>
-            <td>Own goal</td>
-            <td>-6</td>
-        </tr>
-        <tr>
-            <td>Missing a big chance</td>
-            <td>-3</td>
-        </tr>
-        <tr>
-            <td>Making an error which leads to a goal</td>
-            <td>-3</td>
-        </tr>
-        <tr>
-            <td>Making an error which leads to an attempt at goal</td>
-            <td>-1</td>
-        </tr>
-        <tr>
-            <td>Being tackled</td>
-            <td>-1</td>
-        </tr>
-        <tr>
-            <td>Conceding a foul</td>
-            <td>-1</td>
-        </tr>
-        <tr>
-            <td>Being caught offside</td>
-            <td>-1</td>
-        </tr>
-        <tr>
-            <td>Shot off target</td>
-            <td>-1</td>
-        </tr>
-    </tbody>
-</table>
-<p>*Net successful tackles is the total of all successful tackles minus any unsuccessful tackles. Players will not be awarded negative BPS points for this statistic.</p>
-<p>Data is supplied by Opta and once it has been marked as final will not be changed. We will not enter into discussion around any of the statistics used to calculate this score for any individual match.</p>
+@*Status & Info*@
+<div class="row">
+    @*Status*@
+    <div class="col-lg pb-3">
+        <div class="bg-secondary p-2 text-dark bg-opacity-25 text-center">
+            <h4>Status</h4>
+        </div>
+        <div class="bg-light">
+            <table class="table">
+                <thead>
+                    <tr class="text-muted text-capitalize">
+                        <td scope="col">Day</td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Match Points">
+                            Match Points
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Bonus Points">
+                            Bonus Points
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.event_status.Keys)
+                    {
+                        <tr>
+                            <th scope="row" class="text-capitalize">@item.date.ToString("dddd dd MMMM")</th>
+                            <td class="text-center text-uppercase">@Model.event_status[item][key: "confirmed_or_live"]</td>
+                            <td class="text-center text-uppercase">@Model.event_status[item][key: "bonus_added"]</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="bg-dark text-white">
+                        <th scope="row">League Tables</th>
+                        <td colspan="2" class="text-center text-uppercase">@Model.event_status_rootobject.leagues</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    @*Info*@
+    <div class="col pb-3">
+        <div class="bg-secondary p-2 text-dark bg-opacity-25 text-center">
+            <h4>Info</h4>
+        </div>
+        <div class="container">
+            <div class="row bg-light">
+                @foreach (var item in Model.event_info.Keys)
+                {
+                    <div class="border text-center col-xl-4 col-sm-6">
+                        <p>Highest Points:</p>
+                        @item.highest_score
+                    </div>
+                    <div class="border text-center col-xl-4 col-sm-6">
+                        <p>Average Points:</p>
+                        @item.average_entry_score
+                    </div>
+                    <div class="border text-center col-xl-4 col-sm-6">
+                        <p>Most Transferred In:</p>
+                        <a asp-controller="Element" asp-action="Details" asp-route-id="@item.most_transferred_in">
+                            @Model.event_info[item][key: "most_transferred_in_name"]
+                        </a>
+                    </div>
+                    <div class="border text-center col-xl-4 col-sm-6">
+                        <p>Most Captained:</p>
+                        <a asp-controller="Element" asp-action="Details" asp-route-id="@item.most_captained">
+                            @Model.event_info[item][key: "most_captained_name"]
+                        </a>
+                    </div>
+                    <div class="border text-center col-xl-4 col-sm-6">
+                        <p>Most Vice Captained:</p>
+                        <a asp-controller="Element" asp-action="Details" asp-route-id="@item.most_vice_captained">
+                            @Model.event_info[item][key: "most_vice_captained_name"]
+                        </a>
+                    </div>
+                    <div class="border text-center col-xl-4 col-sm-6">
+                        <p>Most Selected:</p>
+                        <a asp-controller="Element" asp-action="Details" asp-route-id="@item.most_selected">
+                            @Model.event_info[item][key: "most_selected_name"]
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*My team & Team of the Week*@
+<div class="row">
+    @*My team*@
+    <div class="col-lg pb-3">
+        <div class="container">
+            <div class="row bg-secondary p-2 text-dark bg-opacity-25">
+                <div class="col">
+                    <h4>Ef See El Es Dee</h4>
+                </div>
+                <div class="col text-end">
+                    @*  <a asp-controller="Dreamteam" asp-action="Details" asp-route-id="@Model.event_status_rootobject.status[0].Event">*@
+                    @Model.my_team_total_points pts <i class="bi bi-arrow-right"></i>
+                    @*</a>*@
+                </div>
+            </div>
+        </div>
+        <div class="bg-light">
+            <table class="table">
+                <thead>
+                    <tr class="text-muted text-capitalize">
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Position">
+                            Pos
+                        </td>
+                        <td scope="col">Player</td>
+                        <td scope="col">
+                            <i class="bi bi-shield"></i> Club
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Points">
+                            Pts
+                        </td>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.my_team.Keys)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Model.my_team[item][key: "element_type_singular_name_short"]
+                            </td>
+                            <td>
+                                <span title="@Model.my_team[item][key:"element_news"]">
+                                    <i class="@Model.my_team[item][key: "chance_of_playing_icon"]
+                                       @Model.my_team[item][key: "chance_of_playing_icon_color"]"></i>
+                                </span>
+                                <a asp-controller="Element" asp-action="Details" asp-route-id="@item.element">
+                                    @Model.my_team[item][key: "element_web_name"]
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-controller="Team" asp-action="Details" asp-route-id="@Model.my_team[item][key: "element_team_id"]">
+                                    <img src="~/club-icons/@Model.my_team[item][key: "element_team_name"]" width="25" />
+                                    @Model.my_team[item][key: "element_team_short_name"]
+                                </a>
+                            </td>
+                            <td class="text-center">@Model.my_team[item][key: "event_element_stats_total_points"]</td>
+                            <td class="text-center">@Model.my_team[item][key: "captain_or_vice_captian"]</td>
+                        </tr>
+                        @if (item.position == 11)
+                        {
+                            <tr>
+                                <td class="text-center"><i class="fa-solid fa-couch"></i></td>
+                                <td colspan="4">Bench (@Model.my_bench_total_points pts)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @*Team of the Week*@
+    <div class="col pb-3">
+        <div class="container">
+            <div class="row bg-secondary p-2 text-dark bg-opacity-25">
+                <div class="col">
+                    <h4>Team of the Week</h4>
+                </div>
+                <div class="col text-end">
+                    <a asp-controller="Dreamteam" asp-action="Details" asp-route-id="@Model.event_status_rootobject.status[0].Event">
+                        @Model.team_of_the_week_total_points pts <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-light">
+            <table class="table">
+                <thead>
+                    <tr class="text-muted text-capitalize">
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Position">
+                            Pos
+                        </td>
+                        <td scope="col">Player</td>
+                        <td scope="col">
+                            <i class="bi bi-shield"></i> Club
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Points">
+                            Pts
+                        </td>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.team_of_the_week.Keys)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Model.team_of_the_week[item][key: "element_type_singular_name_short"]
+                            </td>
+                            <td>
+                                <span title="@Model.team_of_the_week[item][key:"element_news"]">
+                                    <i class="@Model.team_of_the_week[item][key: "chance_of_playing_icon"]
+                                       @Model.team_of_the_week[item][key: "chance_of_playing_icon_color"]"></i>
+                                </span>
+                                <a asp-controller="Element" asp-action="Details" asp-route-id="@item.element">
+                                    @Model.team_of_the_week[item][key: "element_web_name"]
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-controller="Team" asp-action="Details" asp-route-id="@Model.team_of_the_week[item][key: "element_team_id"]">
+                                    <img src="~/club-icons/@Model.team_of_the_week[item][key: "element_team_name"]" width="25" />
+                                    @Model.team_of_the_week[item][key: "element_team_short_name"]
+                                </a>
+                            </td>
+                            <td class="text-center">@item.points</td>
+                            <td class="text-center"><i class="@Model.team_of_the_week[item][key: "king_of_the_week"]"></i></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@*Top transfers in and out*@
+<div class="row">
+    @*Top transfers in*@
+    <div class="col pb-3">
+        <div class="container">
+            <div class="row bg-secondary p-2 text-dark bg-opacity-25">
+                <div class="col-10">
+                    <h5>Top Transfers in this Gameweek</h5>
+                </div>
+                <div class="col text-end">
+                    <a asp-controller="Element" asp-action="Index">
+                        More <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-light">
+            <table class="table">
+                <thead>
+                    <tr class="text-muted text-capitalize">
+                        <th></th>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Position">
+                            Pos
+                        </td>
+                        <td scope="col">Player</td>
+                        <td scope="col">
+                            <i class="bi bi-shield"></i> Club
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Number of transfers-in">
+                            <i class="bi bi-graph-up"></i>
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Price">
+                            <i class="bi bi-currency-pound"></i>
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Price Change">
+                            <i class="bi bi-plus-slash-minus"></i>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.top_transfers_in.Keys)
+                    {
+                        <tr>
+                            <td class="text-center @Model.top_transfers_in[item][key: "already_owned"]"></td>
+                            <td class="text-center">
+                                @Model.top_transfers_in[item][key: "element_type_singular_name_short"]
+                            </td>
+                            <td>
+                                <span title="@item.news">
+                                    <i class="@Model.top_transfers_in[item][key: "chance_of_playing_icon"]
+                                       @Model.top_transfers_in[item][key: "chance_of_playing_icon_color"]"></i>
+                                </span>
+                                <a asp-controller="Element" asp-action="Details" asp-route-id="@item.id">
+                                    @item.web_name
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-controller="Team" asp-action="Details" asp-route-id="@Model.top_transfers_in[item][key: "element_team_id"]">
+                                    <img src="~/club-icons/@Model.top_transfers_in[item][key: "element_team_name"]" width="25" />
+                                    @Model.top_transfers_in[item][key: "element_team_short_name"]
+                                </a>
+                            </td>
+                            <td class="text-center">@item.transfers_in_event</td>
+                            <td class="text-center">@item.now_cost</td>
+                            <td class="text-center">@item.cost_change_event</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @*Top transfers out*@
+    <div class="col pb-3">
+        <div class="container">
+            <div class="row bg-secondary p-2 text-dark bg-opacity-25">
+                <div class="col-10">
+                    <h5>Top Transfers out this Gameweek</h5>
+                </div>
+                <div class="col text-end">
+                    <a asp-controller="Element" asp-action="Index">
+                        More <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-light">
+            <table class="table">
+                <thead>
+                    <tr class="text-muted text-capitalize">
+                        <th></th>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Position">
+                            Pos
+                        </td>
+                        <td scope="col">Player</td>
+                        <td scope="col">
+                            <i class="bi bi-shield"></i> Club
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Number of transfers-out">
+                            <i class="bi bi-graph-down"></i>
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Price">
+                            <i class="bi bi-currency-pound"></i>
+                        </td>
+                        <td scope="col"
+                            class="text-center"
+                            style="text-decoration:underline dotted"
+                            data-bs-trigger="hover focus"
+                            data-bs-toggle="popover"
+                            data-bs-placement="top"
+                            data-bs-content="Price Change">
+                            <i class="bi bi-plus-slash-minus"></i>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.top_transfers_out.Keys)
+                    {
+                    <tr>
+                        <td class="text-center @Model.top_transfers_out[item][key: "already_owned"]"></td>
+                        <td class="text-center">
+                            @Model.top_transfers_out[item][key: "element_type_singular_name_short"]
+                        </td>
+                        <td>
+                            <span title="@item.news">
+                                <i class="@Model.top_transfers_out[item][key: "chance_of_playing_icon"]
+                                       @Model.top_transfers_out[item][key: "chance_of_playing_icon_color"]"></i>
+                            </span>
+                            <a asp-controller="Element" asp-action="Details" asp-route-id="@item.id">
+                                @item.web_name
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-controller="Team" asp-action="Details" asp-route-id="@Model.top_transfers_out[item][key: "element_team_id"]">
+                                <img src="~/club-icons/@Model.top_transfers_out[item][key: "element_team_name"]" width="25" />
+                                @Model.top_transfers_out[item][key: "element_team_short_name"]
+                            </a>
+                        </td>
+                        <td class="text-center">@item.transfers_out_event</td>
+                        <td class="text-center">@item.now_cost</td>
+                        <td class="text-center">@item.cost_change_event</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

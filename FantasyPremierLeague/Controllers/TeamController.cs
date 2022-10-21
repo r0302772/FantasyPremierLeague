@@ -1,4 +1,7 @@
-﻿using FantasyPremierLeague.Models;
+﻿using FantasyPremierLeague.DataAcces;
+using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.fixtures.fixtures;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,35 +16,9 @@ namespace FantasyPremierLeague.Controllers
 {
     public class TeamController : Controller
     {
-        #region API GetRequests
-        [NonAction]
-        public async Task<Rootobject> GetBootstrapStatic()
+        public TeamController()
         {
-            Rootobject bootstrap_static;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
 
-            return bootstrap_static;
-        }
-
-        [NonAction]
-        public async Task<List<Fixture>> GetFixtures()
-        {
-            List<Fixture> fixtures_list;
-            using (var httpClient = new HttpClient())
-            {
-                using var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/fixtures/");
-                string apiResponse = await response.Content.ReadAsStringAsync();
-                fixtures_list = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
-            }
-
-            return fixtures_list;
         }
 
         [NonAction]
@@ -59,11 +36,11 @@ namespace FantasyPremierLeague.Controllers
 
             return fixtures_list;
         }
-        #endregion
+
 
         public async Task<IActionResult> Index(string sortOrder)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var teams_list = data.teams.ToList();
 
@@ -115,7 +92,7 @@ namespace FantasyPremierLeague.Controllers
                 return NotFound();
             }
 
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var team = data.teams.FirstOrDefault(x => x.id == id);
 
@@ -124,7 +101,8 @@ namespace FantasyPremierLeague.Controllers
                 return NotFound();
             }
 
-            var fixtures_list = GetFixturesByTeamId(id).Result;
+            var fixtures_list = await ApiOperations.GetFixtures(false);
+            fixtures_list = fixtures_list.Where(x => x.team_h == id || x.team_a == id).ToList();
 
             foreach (var fixture in fixtures_list)
             {
@@ -221,11 +199,11 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> Standings(string sortOrder)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var teams_list = data.teams.ToList();
 
-            var fixtures_list = GetFixtures().Result;
+            var fixtures_list = await ApiOperations.GetFixtures(false);
 
             foreach (var team in teams_list)
             {

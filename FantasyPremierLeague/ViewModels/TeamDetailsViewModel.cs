@@ -1,4 +1,5 @@
 ﻿using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.bootstrap_static.elements;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
