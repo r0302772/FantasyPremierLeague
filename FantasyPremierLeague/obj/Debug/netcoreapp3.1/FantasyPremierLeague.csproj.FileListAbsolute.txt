@@ -88,3 +88,4 @@ C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\Fantasy
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Element\SetPieceTakers.cshtml.g.cs
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Fantasy\Index.cshtml.g.cs
 C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Fantasy\LeagueStandings.cshtml.g.cs
+C:\Users\Dennis Nijs\Desktop\Probeersels\FPL WebApp\FantasyPremierLeague\FantasyPremierLeague\obj\Debug\netcoreapp3.1\Razor\Views\Home\Help.cshtml.g.cs

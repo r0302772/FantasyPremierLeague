@@ -1,4 +1,4 @@
-﻿using FantasyPremierLeague.Data;
+﻿using FantasyPremierLeague.DataAcces;
 using FantasyPremierLeague.Models;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,48 +10,21 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.element_summary;
+using FantasyPremierLeague.Models.bootstrap_static.elements;
 
 namespace FantasyPremierLeague.Controllers
 {
     public class ElementController : Controller
     {
-        #region API GetRequests
-        [NonAction]
-        public async Task<Rootobject> GetBootstrapStatic()
+        public ElementController()
         {
-            Rootobject bootstrap_static;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
 
-            return bootstrap_static;
         }
-
-        [NonAction]
-        public async Task<Rootobject> GetElementSummaryById(int? id)
-        {
-            Rootobject element_summary;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/element-summary/{id}/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    element_summary = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
-
-            return element_summary;
-        }
-        #endregion
-
         public async Task<IActionResult> Index()
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var teams_list = data.teams.ToList();
             var element_types_list = data.element_types.ToList();
@@ -96,7 +69,7 @@ namespace FantasyPremierLeague.Controllers
         {
             ViewData["CurrentFilter"] = search_string;
 
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var elements_list = data.elements.OrderBy(x => x.team).ThenBy(x => x.id).ToList();
             var teams_list = data.teams.ToList();
@@ -162,14 +135,14 @@ namespace FantasyPremierLeague.Controllers
             };
 
 
-            return View("Index",viewModel);
+            return View("Index", viewModel);
         }
 
         public async Task<IActionResult> Details(int? id)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
-            var element_summary = GetElementSummaryById(id).Result;
+            var element_summary = await ApiOperations.GetElementSummary(id);
             var teams_list = data.teams.ToList();
             var element = data.elements.FirstOrDefault(x => x.id == id);
             var element_team_name = data.teams.First(x => x.id == element.team).name;
@@ -194,7 +167,7 @@ namespace FantasyPremierLeague.Controllers
             foreach (var item in element_fixtures)
             {
                 var opponent = teams_list.First(x => x.id == item.team_h);
-                item.opponent_team = opponent.id;
+                //item.opponent_team = opponent.id;
                 item.opponent_team_name = opponent.name;
 
                 if (item.is_home)
@@ -212,7 +185,8 @@ namespace FantasyPremierLeague.Controllers
                 element_type = element_type,
                 element_history = element_history,
                 element_fixtures = element_fixtures,
-                value_difference = value_difference
+                value_difference = value_difference,
+                total_minutes = element_history.Count * 90
             };
 
             return View(viewModel);
@@ -222,7 +196,7 @@ namespace FantasyPremierLeague.Controllers
                                                         string element_type_id,
                                                         string set_piece_id)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
             var teams_list = data.teams.ToList();
             var teams_count = teams_list.Count();

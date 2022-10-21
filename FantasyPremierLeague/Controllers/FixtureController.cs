@@ -1,4 +1,7 @@
-﻿using FantasyPremierLeague.Models;
+﻿using FantasyPremierLeague.DataAcces;
+using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.bootstrap_static;
+using FantasyPremierLeague.Models.fixtures.fixtures;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,43 +16,16 @@ namespace FantasyPremierLeague.Controllers
 {
     public class FixtureController : Controller
     {
-        #region API GetRequests
-        [NonAction]
-        public async Task<Rootobject> GetBootstrapStatic()
+        public FixtureController()
         {
-            Rootobject bootstrap_static;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/bootstrap-static/"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    bootstrap_static = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
 
-            return bootstrap_static;
         }
-
-        [NonAction]
-        public async Task<List<Fixture>> GetFixtures()
-        {
-            List<Fixture> fixtureList;
-            using (var httpClient = new HttpClient())
-            {
-                using var response = await httpClient.GetAsync("https://fantasy.premierleague.com/api/fixtures/");
-                string apiResponse = await response.Content.ReadAsStringAsync();
-                fixtureList = JsonConvert.DeserializeObject<List<Fixture>>(apiResponse);
-            }
-
-            return fixtureList;
-        }
-        #endregion
 
         public async Task<IActionResult> Index()
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
-            var fixtures_list = GetFixtures().Result;
+            var fixtures_list = await ApiOperations.GetFixtures(false);
             fixtures_list = fixtures_list.Where(x => x.Event == 1).ToList();
 
             var teams_list = data.teams.ToList();
@@ -159,9 +135,9 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> Filter(string team_id, string event_id, string phase_id)
         {
-            var data = GetBootstrapStatic().Result;
+            var data = await ApiOperations.GetBootstrapStatic();
 
-            var fixtures_list = GetFixtures().Result;
+            var fixtures_list = await ApiOperations.GetFixtures(false);
 
             var teams_list = data.teams.ToList();
 
@@ -296,7 +272,7 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            var fixtures_list = GetFixtures().Result;
+            var fixtures_list = await ApiOperations.GetFixtures(false);
 
             FixtureDetailsViewModel viewModel = new FixtureDetailsViewModel()
             {

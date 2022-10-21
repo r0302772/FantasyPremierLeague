@@ -1,4 +1,6 @@
-﻿using FantasyPremierLeague.Models;
+﻿using FantasyPremierLeague.DataAcces;
+using FantasyPremierLeague.Models;
+using FantasyPremierLeague.Models.leagues_classic_standings;
 using FantasyPremierLeague.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,24 +14,10 @@ namespace FantasyPremierLeague.Controllers
 {
     public class FantasyController : Controller
     {
-        #region API GetRequests
-        [NonAction]
-        public async Task<Rootobject> GetLeagueStandingsByLeagueId(int? league_id)
+        public FantasyController()
         {
-            Rootobject league;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"https://fantasy.premierleague.com/api/leagues-classic/{league_id}/standings"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    league = JsonConvert.DeserializeObject<Rootobject>(apiResponse);
-                }
-            }
 
-            return league;
         }
-
-        #endregion
 
         public async Task<IActionResult> Index()
         {
@@ -38,7 +26,7 @@ namespace FantasyPremierLeague.Controllers
 
         public async Task<IActionResult> LeagueStandings(int? id)
         {
-            var data = GetLeagueStandingsByLeagueId(id).Result;
+            var data = await ApiOperations.GetLeaguesClassicStandings(id);
 
             var league = data.league;
             var results_standings_list = data.standings.results.ToList();
@@ -57,6 +45,35 @@ namespace FantasyPremierLeague.Controllers
                 if (item != results_standings_list.Last())
                 {
                     item.point_difference_place_down = item.total - results_standings_list[results_standings_list.IndexOf(item) + 1].total;
+                }
+            }
+
+            foreach (var item in results_standings_list)
+            {
+                var entry_histories = await ApiOperations.GetEntryHistory(item.entry);//9 api calls
+                for (int i = 1; i <= entry_histories.current.Count; i++)
+                {
+                    var entry_event_picks = await ApiOperations.GetEntryEventPicks(item.entry, i);//11 api calls
+                    foreach (var auto_sub in entry_event_picks.automatic_subs)
+                    {
+                        if (auto_sub != null)
+                        {
+                            var element_summary = await ApiOperations.GetElementSummary(auto_sub.element_in);
+                            var histories = element_summary.history;
+                            foreach (var history in histories)
+                            {
+                                if (history.round == i)
+                                {
+                                    item.points_from_auto_subs += history.total_points;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                foreach (var history in entry_histories.current)
+                {
+                    item.total_points_on_bench += history.points_on_bench;
                 }
             }
 
